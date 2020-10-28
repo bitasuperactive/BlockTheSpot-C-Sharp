@@ -1,5 +1,5 @@
 # Overview
-<img src="https://github.com/bitasuperactive/BlockTheSpot-Remastered/blob/master/doc/icon.ico" width="216"/> <img src="https://github.com/bitasuperactive/BlockTheSpot-Remastered/blob/master/doc/blockthespot.png" width="203"/>
+<img src="https://github.com/bitasuperactive/BlockTheSpot-C-Sharp/blob/master/doc/icon.ico" width="216"/> <img src="https://github.com/bitasuperactive/BlockTheSpot-C-Sharp/blob/master/doc/blockthespot.png" width="203"/>
 
 Bloquea todos los anuncios de Spotify con un solo clic.
 
