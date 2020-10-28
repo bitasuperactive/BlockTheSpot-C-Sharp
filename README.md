@@ -16,7 +16,7 @@ Bloquea todos los anuncios de Spotify con un solo clic.
 - Mantiene las funcionalidades de lista de amigos, vídeo vertical y rádio.
 - Desbloquea la función de *saltar* para cualquier canción.
 
-:warning: Este mod esta diseñado únicamente para la versión de Escritorio de Spotify, no es compatible con la versión de Microsoft Store.
+:warning: BlockTheSpot no es compatible con la versión Microsoft Store de Spotify.
 
 ## Instalación | Desinstalación
 Simplemente ejecuta BlockTheSpot y elige la opción deseada.
