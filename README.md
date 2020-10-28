@@ -3,7 +3,7 @@
 
 Bloquea todos los anuncios de Spotify con un solo clic.
 
-[Downloads & Release notes](https://github.com/bitasuperactive/BlockTheSpotCSharp/releases) | [YouTube](https://www.youtube.com/channel/UCc-AA6VaZh81DYYCrSAMS5w?).
+[Downloads & Release notes](https://github.com/bitasuperactive/BlockTheSpot-C-Sharp/releases) | [YouTube](https://www.youtube.com/channel/UCc-AA6VaZh81DYYCrSAMS5w?).
 
 ## Última versión de Spotify testada 
 **1.1.4.197.g92d52c4f**   
