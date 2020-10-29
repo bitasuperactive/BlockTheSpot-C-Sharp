@@ -3,7 +3,7 @@
 
 **Con un solo clic, no más anuncios.**
 
-[Descargas y Notas de Publicación](https://github.com/bitasuperactive/BlockTheSpot-C-Sharp/releases) | [YouTube](https://www.youtube.com/channel/UCc-AA6VaZh81DYYCrSAMS5w?) | *Basado en BlockTheSpot by [@master131](https://github.com/master131/BlockTheSpot)*
+[Descargas y Notas de Publicación](https://github.com/bitasuperactive/BlockTheSpot-C-Sharp/releases) | [YouTube](https://www.youtube.com/channel/UCc-AA6VaZh81DYYCrSAMS5w?) | Basado en BlockTheSpot by [@master131](https://github.com/master131/BlockTheSpot)
 
 ## Descripción
 **Estado:** Funcionando en 01/11/2020 :white_check_mark:
