@@ -27,9 +27,9 @@ Los archivos utilizados para este propósito proceden de las siguientes fuentes,
 - Mantiene las funcionalidades de lista de amigos, vídeo vertical y rádio.
 - Restablece Spotify a su versión original.
 
-:information_source: Privilegios de Administrador NO requeridos.    
+:warning: BlockTheSpot no es compatible con la versión Microsoft Store de Spotify.    
 
-:warning: BlockTheSpot no es compatible con la versión Microsoft Store de Spotify.
+:information_source: Privilegios de Administrador NO requeridos.
 
 ## Creditos
 Basado en *BlockTheSpot by [@master131](https://github.com/master131/BlockTheSpot)*.
