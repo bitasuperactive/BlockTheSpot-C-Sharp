@@ -69,7 +69,7 @@ namespace BlockTheSpot
         #region Buttons
         private void PatchButton_Click(object sender, EventArgs e) => PatchButtonMethod();
         private void ResetButton_Click(object sender, EventArgs e) => ResetButtonMethod();
-        private void BlockTheSpot_HelpButtonClicked(object sender, System.ComponentModel.CancelEventArgs e) => Process.Start("https://github.com/bitasuperactive/BlockTheSpot-OneClick");
+        private void BlockTheSpot_HelpButtonClicked(object sender, System.ComponentModel.CancelEventArgs e) => Process.Start("https://github.com/bitasuperactive/BlockTheSpot-C-Sharp");
 
         private void PatchButtonMethod()
         {
