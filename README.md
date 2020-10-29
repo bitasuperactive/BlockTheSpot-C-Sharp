@@ -3,7 +3,7 @@
 
 **Con un solo clic, no más anuncios en Spotify.**
 
-[Descargas y notas de lanzamiento](https://github.com/bitasuperactive/BlockTheSpot-C-Sharp/releases) | [YouTube](https://www.youtube.com/channel/UCc-AA6VaZh81DYYCrSAMS5w?).
+[Descargas y Notas de Publicación](https://github.com/bitasuperactive/BlockTheSpot-C-Sharp/releases) | [YouTube](https://www.youtube.com/channel/UCc-AA6VaZh81DYYCrSAMS5w?).
 
 ## Descripción
 **Estado:** Working on 2020-11-01 :white_check_mark:
