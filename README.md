@@ -8,7 +8,7 @@
 ## Descripción
 *Basado en BlockTheSpot by [@master131](https://github.com/master131/BlockTheSpot)*.
 
-**Estado:** Working on 2020-11-01 :white_check_mark:
+**Estado:** Funcionando en 01/11/2020 :white_check_mark:
 
 **BlockTheSpot** (BTS en adelante) **lleva a cabo las siguientes funciones:**   
 Al pulsar el botón principal, BTS instala automáticamente la última versión de Spotify testada para el propósito de este repositorio (*spotify_installer-1.1.4.197.g92d52c4f-13.exe*), tras lo cual, introduce un archivo dll (natutils.dll), encargado de bloquear banners/vídeos/audios publicitarios, en el directorio principal de Spotify ubicado en la siguiente ruta: *%appdata%\Spotify*. A continuación, BTS restringe los permisos de acceso al directorio *%localappdata%\Spotify\Update* con el fin de evitar actualizaciones automáticas por parte de Spotify.    
@@ -37,4 +37,4 @@ Los archivos utilizados para este propósito proceden de las siguientes fuentes,
 **Al utilizar BlockTheSpot asumes toda responsabilidad subyacente.**    
 Spotify suspenderá indefinidamente las cuentas de usuario que utilicen cualquier forma de ad-block (como BlockTheSpot) al violar los términos y condiciones de uso. Medida implementada el 01/03/2019.
 
-*Pero, a modo de apunte, por mi experiencia personal puedo decir que tras 2 años utilizándo este método no he tenido problemas de ningún tipo.*
+*Pero a modo de apunte, por mi experiencia personal puedo decir que tras 2 años utilizándo este método, no he tenido problemas de ningún tipo.*
