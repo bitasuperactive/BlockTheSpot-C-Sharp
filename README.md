@@ -9,7 +9,7 @@
 **Estado:** Working on 2020-11-01 :white_check_mark:
 
 **BlockTheSpot (BTS en adelante) lleva a cabo las siguientes funciones:**   
-Al pulsar el botón principal, BTS instala automáticamente la última versión de Spotify testada para el propósito de este repositorio (*spotify_installer-1.1.4.197.g92d52c4f-13.exe*), tras lo cual, introduce un archivo dll (natutils.dll), encargado de llevar a cabo las *características* especificadas más adelante, en el directorio principal de Spotify ubicado en la siguiente ruta: "%appdata%\Spotify". A continuación, BTS restringe los permisos de acceso al directorio "Update" localizado en la siguiente ruta: "%localappdata%\Spotify\Update", con el fin de evitar actualizaciones automáticas por parte de Spotify.    
+Al pulsar el botón principal, BTS instala automáticamente la última versión de Spotify testada para el propósito de este repositorio (*spotify_installer-1.1.4.197.g92d52c4f-13.exe*), tras lo cual, introduce un archivo dll (natutils.dll), encargado de bloquear banners/vídeos/audios publicitarios, en el directorio principal de Spotify ubicado en la siguiente ruta: "%appdata%\Spotify". A continuación, BTS restringe los permisos de acceso al directorio "Update", localizado en la siguiente ruta: "%localappdata%\Spotify\Update", con el fin de evitar actualizaciones automáticas por parte de Spotify.    
 Por último, al pulsar el botón secundario, instala la última versión actualizada de Spotify eliminándo toda modificación mencionada anteriormente, restableciendo así la aplicación sin dejar rastro en su sistema operativo.
 
 Los archivos utilizados para este propósito proceden de las fuentes citadas a continuación.   
@@ -20,7 +20,7 @@ Los archivos utilizados para este propósito proceden de las fuentes citadas a c
 ## Características
 - Solo Windows.
 - BlockTheSpot se encarga de todo, pulsa un botón y olvídate.
-- Bloquea todos los anuncios (banners/vídeos/audio) de la aplicación.
+- Bloquea todos los anuncios (banners/vídeos/audios) de la aplicación.
 - Desbloquea la función de *saltar* para cualquier canción.
 - Mantiene las funcionalidades de lista de amigos, vídeo vertical y rádio.
 - Restablece Spotify a su versión original.
@@ -32,9 +32,11 @@ Simplemente ejecuta BlockTheSpot y elija la opción deseada.
 
 :information_source: Privilegios de Administrador NO requeridos.
 
-## Credits
-Based on BlockTheSpot by [@master131](https://github.com/master131/BlockTheSpot).
+## Creditos
+Basado en *BlockTheSpot by [@master131](https://github.com/master131/BlockTheSpot)*.
 
-## Disclaimer
+## Advertencia
 **Al utilizar BlockTheSpot asumes toda responsabilidad subyacente.**    
 *Spotify suspenderá indefinidamente las cuentas de usuario que utilicen cualquier forma de ad-block (como BlockTheSpot) al violar los términos y condiciones de uso. Medida implementada el 01/03/2019.*
+
+Pero, a modo de apunte, por mi experiencia personal puedo decir que tras 2 años utilizándo este método no he tenido problemas de ningún tipo.
