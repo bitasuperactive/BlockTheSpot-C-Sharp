@@ -15,7 +15,7 @@ Al pulsar el botón principal, BTS instala automáticamente la última versión 
 Por último, al pulsar el botón secundario, instala la última versión actualizada de Spotify eliminándo toda modificación mencionada anteriormente, restableciendo así la aplicación sin dejar rastro en su sistema operativo.
 
 Los archivos utilizados para este propósito proceden de las siguientes fuentes, citadas a continuación.   
-*natutils.dll*: https://raw.githubusercontent.com/master131/BlockTheSpot/master/netutils.dll        
+*natutils.dll*: https://github.com/bitasuperactive/BlockTheSpot-C-Sharp/releases/download/estable/netutils.dll        
 *spotify_installer-1.1.4.197.g92d52c4f-13.exe*: http://upgrade.spotify.com/upgrade/client/win32-x86/spotify_installer-1.1.4.197.g92d52c4f-13.exe       
 *spotify_installer-update*: https://download.scdn.co/SpotifySetup.exe
 
