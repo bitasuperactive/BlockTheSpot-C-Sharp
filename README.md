@@ -6,7 +6,7 @@
 [Descargas y Notas de Publicación](https://github.com/bitasuperactive/BlockTheSpot-C-Sharp/releases) | [YouTube](https://www.youtube.com/channel/UCc-AA6VaZh81DYYCrSAMS5w?).
 
 ## Descripción
-Basado en *BlockTheSpot by [@master131](https://github.com/master131/BlockTheSpot)*.
+*Basado en BlockTheSpot by [@master131](https://github.com/master131/BlockTheSpot)*.
 
 **Estado:** Working on 2020-11-01 :white_check_mark:
 
