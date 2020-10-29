@@ -32,6 +32,6 @@ Por último, al pulsar el botón secundario, instala la última versión actuali
 
 ## Advertencia
 **Al utilizar BlockTheSpot asumes toda responsabilidad subyacente.**    
-Spotify suspenderá indefinidamente las cuentas de usuario que utilicen cualquier forma de ad-block (como BlockTheSpot) al violar los términos y condiciones de uso. Medida implementada el 01/03/2019.
+Spotify suspenderá indefinidamente las cuentas de usuario que utilicen cualquier forma de ad-block al violar los términos y condiciones de uso. Medida implementada el 01/03/2019.
 
 *Pero a modo de apunte, por mi experiencia personal puedo decir que tras 2 años utilizándo este método, no he tenido problemas de ningún tipo.*
