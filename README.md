@@ -8,15 +8,14 @@
 ## Descripción General    
 **Estado:** *Working on 2020-11-01* :white_check_mark:
 
-*BlockTheSpot* (BTS en adelante) lleva a cabo las siguientes funciones:
+**BlockTheSpot (BTS en adelante) lleva a cabo las siguientes funciones:**
 Al pulsar el botón principal, BTS instala automáticamente la última versión de Spotify testada para el propósito de este repositorio (*spotify_installer-1.1.4.197.g92d52c4f-13.exe*), tras lo cual, introduce un archivo dll (natutils.dll), encargado de llevar a cabo las *características* especificadas más adelante, en el directorio principal de Spotify ubicado en la siguiente ruta: "%appdata%\Spotify". A continuación, BTS restringe los permisos de acceso al directorio "Update" localizado en la siguiente ruta: "%localappdata%\Spotify\Update", con el fin de evitar actualizaciones automáticas por parte de Spotify.    
 Por último, al pulsar el botón secundario, instala la última versión actualizada de Spotify eliminándo toda modificación mencionada anteriormente, restableciendo así la aplicación sin dejar rastro en su sistema operativo.
 
-Los archivos utilizados para este propósito proceden de las fuentes citadas a continuación.
-
-natutils.dll: "https://raw.githubusercontent.com/master131/BlockTheSpot/master/netutils.dll"        
-spotify_installer-1.1.4.197.g92d52c4f-13.exe: "http://upgrade.spotify.com/upgrade/client/win32-x86/spotify_installer-1.1.4.197.g92d52c4f-13.exe"        
-spotify_installer-update: "https://download.scdn.co/SpotifySetup.exe"
+*Los archivos utilizados para este propósito proceden de las fuentes citadas a continuación.*   
+*natutils.dll*: https://raw.githubusercontent.com/master131/BlockTheSpot/master/netutils.dll        
+*spotify_installer-1.1.4.197.g92d52c4f-13.exe*: http://upgrade.spotify.com/upgrade/client/win32-x86/spotify_installer-1.1.4.197.g92d52c4f-13.exe       
+*spotify_installer-update*: https://download.scdn.co/SpotifySetup.exe
 
 ## Características
 - Solo Windows.
