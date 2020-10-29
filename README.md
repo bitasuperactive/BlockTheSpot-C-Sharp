@@ -22,16 +22,15 @@ Los archivos utilizados para este propósito proceden de las siguientes fuentes,
 [**Análisis antivírico realizado mediante VirusTotal**](https://www.virustotal.com/gui/file/db72d1346a96ca303bfc3c8c46497cfd58c42f987394679860298ef0f3e4f2a3/detection)
 
 ## Características
-- Solo Windows.
-- BlockTheSpot se encarga de todo, pulsa un botón y olvídate.
-- Bloquea todos los anuncios (banners/vídeos/audios) de la aplicación.
-- Desbloquea la función de *saltar* para cualquier canción.
+- Compatible únicamente con Windows.
+- Bloquea todos los anuncios (banners, vídeos y audios).
+- Desbloquea la función "saltar" para cualquier canción.
 - Mantiene las funcionalidades de lista de amigos, vídeo vertical y rádio.
-- Restablece Spotify a su estado original y actualiza automáticamente.
+- Restablece Spotify a su estado original y lo actualiza automáticamente.
 
 :warning: BlockTheSpot no es compatible con la versión Microsoft Store de Spotify.    
 
-:information_source: Privilegios de Administrador NO requeridos.
+:information_source: Privilegios de Administrador no requeridos.
 
 ## Advertencia
 **Al utilizar BlockTheSpot asumes toda responsabilidad subyacente.**    
