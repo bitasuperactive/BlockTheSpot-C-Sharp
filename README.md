@@ -16,7 +16,7 @@ Por último, al pulsar el botón secundario, instala la última versión actuali
 
 Los archivos utilizados para este propósito proceden de las siguientes fuentes, citadas a continuación.   
 *natutils.dll*: https://raw.githubusercontent.com/master131/BlockTheSpot/master/netutils.dll        
-*spotify_installer-1.1.4.197.g92d52c4f-13.exe*: http://upgrade.spotify.com/upgrade/client/win32-x86/spotify_installer-1.1.4.197.g92d52c4f-13.exe       
+*spotify_installer-1.1.4.197.g92d52c4f-13.exe*: https://upgrade.spotify.com/upgrade/client/win32-x86/spotify_installer-1.1.4.197.g92d52c4f-13.exe       
 *spotify_installer-update*: https://download.scdn.co/SpotifySetup.exe
 
 [**Análisis antivírico realizado mediante VirusTotal**](https://www.virustotal.com/gui/file/db72d1346a96ca303bfc3c8c46497cfd58c42f987394679860298ef0f3e4f2a3/detection)
