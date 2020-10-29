@@ -26,7 +26,7 @@ Los archivos utilizados para este propósito proceden de las siguientes fuentes,
 - Bloquea todos los anuncios (banners, vídeos y audios).
 - Desbloquea la función "saltar" para cualquier canción.
 - Mantiene las funcionalidades de lista de amigos, vídeo vertical y rádio.
-- Restablece Spotify a su estado original y lo actualiza automáticamente.
+- Restablece Spotify a su estado original y actualiza automáticamente.
 
 :warning: BlockTheSpot no es compatible con la versión Microsoft Store de Spotify.    
 
