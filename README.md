@@ -19,6 +19,8 @@ Los archivos utilizados para este propósito proceden de las siguientes fuentes,
 
 [**Análisis antivírico realizado mediante VirusTotal**](https://www.virustotal.com/gui/file/db72d1346a96ca303bfc3c8c46497cfd58c42f987394679860298ef0f3e4f2a3/detection)
 
+Basado en *BlockTheSpot by [@master131](https://github.com/master131/BlockTheSpot)*.
+
 ## Características
 - Solo Windows.
 - BlockTheSpot se encarga de todo, pulsa un botón y olvídate.
@@ -30,9 +32,6 @@ Los archivos utilizados para este propósito proceden de las siguientes fuentes,
 :warning: BlockTheSpot no es compatible con la versión Microsoft Store de Spotify.    
 
 :information_source: Privilegios de Administrador NO requeridos.
-
-## Creditos
-Basado en *BlockTheSpot by [@master131](https://github.com/master131/BlockTheSpot)*.
 
 ## Advertencia
 **Al utilizar BlockTheSpot asumes toda responsabilidad subyacente.**    
