@@ -6,6 +6,7 @@
 [Descargas y Notas de Publicación](https://github.com/bitasuperactive/BlockTheSpot-C-Sharp/releases) | [YouTube](https://www.youtube.com/channel/UCc-AA6VaZh81DYYCrSAMS5w?).
 
 ## Descripción
+Basado en *BlockTheSpot by [@master131](https://github.com/master131/BlockTheSpot)*.    
 **Estado:** Working on 2020-11-01 :white_check_mark:
 
 **BlockTheSpot (BTS en adelante) lleva a cabo las siguientes funciones:**   
@@ -18,8 +19,6 @@ Los archivos utilizados para este propósito proceden de las siguientes fuentes,
 *spotify_installer-update*: https://download.scdn.co/SpotifySetup.exe
 
 [**Análisis antivírico realizado mediante VirusTotal**](https://www.virustotal.com/gui/file/db72d1346a96ca303bfc3c8c46497cfd58c42f987394679860298ef0f3e4f2a3/detection)
-
-Basado en *BlockTheSpot by [@master131](https://github.com/master131/BlockTheSpot)*.
 
 ## Características
 - Solo Windows.
