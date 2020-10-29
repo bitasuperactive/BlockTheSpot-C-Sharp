@@ -28,6 +28,7 @@ Los archivos utilizados para este propósito proceden de las siguientes fuentes,
 - Restablece Spotify a su versión original.
 
 :information_source: Privilegios de Administrador NO requeridos.    
+
 :warning: BlockTheSpot no es compatible con la versión Microsoft Store de Spotify.
 
 ## Creditos
