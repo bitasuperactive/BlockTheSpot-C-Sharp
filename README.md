@@ -5,7 +5,7 @@
 
 [Downloads & Release notes](https://github.com/bitasuperactive/BlockTheSpot-C-Sharp/releases) | [YouTube](https://www.youtube.com/channel/UCc-AA6VaZh81DYYCrSAMS5w?).
 
-## Descripción General    
+## Descripción
 **Estado:** Working on 2020-11-01 :white_check_mark:
 
 **BlockTheSpot (BTS en adelante) lleva a cabo las siguientes funciones:**   
