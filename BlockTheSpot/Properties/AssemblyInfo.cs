@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // La información general de un ensamblado se controla mediante el siguiente 
 // conjunto de atributos. Cambie estos valores de atributo para modificar la información
 // asociada con un ensamblado.
-[assembly: AssemblyTitle("BlockTheSpot")]
-[assembly: AssemblyDescription("Con un solo clic, disfruta Spotify sin anuncios.")]
+[assembly: AssemblyTitle("Con un solo clic, disfruta Spotify sin anuncios.")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Bita SuperActive")]
-[assembly: AssemblyProduct("BlockTheSpot")]
+[assembly: AssemblyProduct("BlockTheSpot-C-Sharp")]
 [assembly: AssemblyCopyright("Copyright ©2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
