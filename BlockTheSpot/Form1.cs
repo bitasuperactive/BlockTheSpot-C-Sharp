@@ -9,6 +9,7 @@ using System.Security.AccessControl;
 using System.Management.Automation;
 using System.Threading;
 using Microsoft.Win32;
+using System.ComponentModel;
 
 namespace BlockTheSpot
 {
@@ -76,10 +77,9 @@ namespace BlockTheSpot
             WorkingPictureBox.BringToFront();
             WorkingPictureBox.Visible = true;
 
-            TerminateSpotify();
-
             try
             {
+                TerminateSpotify();
                 SpotifyDowngrade();
                 InjectNatutils();
                 DisableAutoUpdate();
@@ -99,10 +99,9 @@ namespace BlockTheSpot
             WorkingPictureBox.BringToFront();
             WorkingPictureBox.Visible = true;
 
-            TerminateSpotify();
-
             try
             {
+                TerminateSpotify();
                 ClearSpotify();
                 UpdateSpotify();
                 Finish(false, "¡Spotify ha sido restablecido con éxito!" + Environment.NewLine + "Gracias por utilizar BlockTheSpot.");
@@ -118,8 +117,15 @@ namespace BlockTheSpot
 
         private void TerminateSpotify()
         {
-            foreach (Process process in Process.GetProcessesByName("Spotify")) { process.Kill(); }
-            while (Process.GetProcessesByName("Spotify").Length > 0) Thread.Sleep(100);
+            try
+            {
+                foreach (Process process in Process.GetProcessesByName("Spotify")) { process.Kill(); }
+                while (Process.GetProcessesByName("Spotify").Length > 0) Thread.Sleep(100);
+            }
+            catch (Win32Exception)
+            {
+                throw new Win32Exception("No ha sido posible cerrar Spotify automáticamente. Ciérralo manualmente si este continúa abierto.");
+            }
         }
 
         #region Patch Methods
