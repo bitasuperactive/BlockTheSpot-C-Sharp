@@ -145,6 +145,12 @@ namespace BlockTheSpot
                 {
                     Process.Start($"{Path.GetTempPath()}spotify_installer-1.1.4.197.g92d52c4f-13.exe").WaitForExit();
 
+                    if (DowngradeRequired())
+                    {
+                        Process.Start("https://github.com/bitasuperactive/BlockTheSpot-C-Sharp");
+                        throw new Exception("No ha sido posible realizar la instalación de Spotify v1.1.4.197.g92d52c4f-13. Póngase en contacto con el desarrollador.");
+                    }
+
                     try { File.Delete($"{Path.GetTempPath()}spotify_installer-1.1.4.197.g92d52c4f-13.exe"); } catch (Exception) { }  // Conflict
 
                     TerminateSpotify();
@@ -219,11 +225,14 @@ namespace BlockTheSpot
 
                 Process.Start($"{Path.GetTempPath()}spotify_installer-update.exe").WaitForExit();
 
+                if (!DowngradeRequired())
+                    throw new WebException();
+
                 try { File.Delete($"{Path.GetTempPath()}spotify_installer-update.exe"); } catch (Exception) { }  // Conflict
             }
             catch (WebException)
             {
-                MessageBox.Show(this, "No ha sido posible actualizar Spotify a su última versión." + Environment.NewLine + "Puede llevar a cabo facilmente esta actualización accediendo al apartado de [Configuración], [Acerca de Spotify] directamente desde los ajustes de Spotify.", "BlockTheSpot", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(this, "No ha sido posible actualizar Spotify a su última versión." + Environment.NewLine + "Puede llevar a cabo facilmente esta actualización accediendo al apartado de [Configuración], [Acerca de Spotify] y [Haz clic para descargar].", "BlockTheSpot", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
         #endregion
