@@ -108,8 +108,7 @@
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "BlockTheSpot";
-            this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.BlockTheSpot_HelpButtonClicked);
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BlockTheSpot_FormClosing);
+            this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.HelpButton_Click);
             this.Load += new System.EventHandler(this.BlockTheSpot_Load);
             ((System.ComponentModel.ISupportInitialize)(this.SpotifyPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.WorkingPictureBox)).EndInit();

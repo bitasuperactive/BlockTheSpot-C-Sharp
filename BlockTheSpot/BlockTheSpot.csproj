@@ -72,9 +72,7 @@
     <ApplicationIcon>Resources\icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
-  <PropertyGroup>
-    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
-  </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
@@ -110,7 +108,6 @@
       <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Properties\app.manifest" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -144,10 +141,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\icon.ico" />
-    <None Include="Resources\WorkingImage.png" />
     <None Include="Resources\DoneImage.png" />
     <None Include="Resources\AddsOnImage.png" />
     <None Include="Resources\AddsOffImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\WorkingImage.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -2,7 +2,6 @@
 using System.Linq;
 using System.Net;
 using System.Security.Principal;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Diagnostics;
@@ -69,7 +68,7 @@ namespace BlockTheSpot
         #region Buttons
         private void PatchButton_Click(object sender, EventArgs e) => PatchButtonMethod();
         private void ResetButton_Click(object sender, EventArgs e) => ResetButtonMethod();
-        private void BlockTheSpot_HelpButtonClicked(object sender, System.ComponentModel.CancelEventArgs e) => Process.Start("https://github.com/bitasuperactive/BlockTheSpot-C-Sharp");
+        private void HelpButton_Click(object sender, EventArgs e) => Process.Start("https://github.com/bitasuperactive/BlockTheSpot-C-Sharp");
 
         private void PatchButtonMethod()
         {
@@ -84,7 +83,6 @@ namespace BlockTheSpot
                 SpotifyDowngrade();
                 InjectNatutils();
                 DisableAutoUpdate();
-                PowerShell.Create().AddScript(@"$ws = New-Object -ComObject WScript.Shell; $s = $ws.CreateShortcut($env:USERPROFILE + '\Desktop\Spotify.lnk'); $S.TargetPath = $env:APPDATA + '\Spotify\Spotify.exe'; $S.Save()").Invoke();
                 Finish(true, "¡Todo listo! Gracias por utilizar BlockTheSpot.");
             }
             catch (Exception exception)
@@ -131,7 +129,7 @@ namespace BlockTheSpot
             {
                 try
                 {
-                    using (WebClient client = new WebClient()) { client.DownloadFile("http://upgrade.spotify.com/upgrade/client/win32-x86/spotify_installer-1.1.4.197.g92d52c4f-13.exe", $"{Path.GetTempPath()}spotify_installer-1.1.4.197.g92d52c4f-13.exe"); }
+                    using (WebClient client = new WebClient()) { client.DownloadFile("https://upgrade.spotify.com/upgrade/client/win32-x86/spotify_installer-1.1.4.197.g92d52c4f-13.exe", $"{Path.GetTempPath()}spotify_installer-1.1.4.197.g92d52c4f-13.exe"); }
                 }
                 catch (WebException)
                 {
@@ -262,17 +260,6 @@ namespace BlockTheSpot
                     fSecurity.RemoveAccessRule(new FileSystemAccessRule(WindowsIdentity.GetCurrent().Name, rights, controlType));
 
                 Directory.SetAccessControl(dirPath, fSecurity);
-            }
-        }
-
-        private void BlockTheSpot_FormClosing(object sender, FormClosingEventArgs close)
-        {
-            if (close.CloseReason == CloseReason.UserClosing && WorkingPictureBox.Visible)
-            {
-                DialogResult exitMessage = MessageBox.Show(this, "BlockTheSpot no ha terminado su trabajo, ¿deseas cerrar la aplicación de todas formas?", "BlockTheSpot", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
-                if (exitMessage == DialogResult.No)
-                    close.Cancel = true;
-                // Pause threads?
             }
         }
     }
