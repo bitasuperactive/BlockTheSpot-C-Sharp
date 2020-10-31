@@ -3,7 +3,7 @@
 
 **Con un solo clic, no más anuncios.**
 
-[Descargas y Notas de Publicación](https://github.com/bitasuperactive/BlockTheSpot-C-Sharp/releases) | [YouTube](https://www.youtube.com/channel/UCc-AA6VaZh81DYYCrSAMS5w?) | Basado en *BlockTheSpot by [@master131](https://github.com/master131/BlockTheSpot)*
+[Descargas y Notas de Publicación](https://github.com/bitasuperactive/BlockTheSpot-C-Sharp/releases) | [YouTube](https://www.youtube.com/channel/UCc-AA6VaZh81DYYCrSAMS5w?) | Basado en *[BlockTheSpot by @master131](https://github.com/master131/BlockTheSpot)*
 
 ## Descripción
 **Estado:** Funcionando en 01/11/2020 :white_check_mark:
@@ -30,8 +30,8 @@ Por último, al pulsar el botón secundario, instala la última versión actuali
 
 :information_source: Privilegios de Administrador no requeridos.
 
-## Advertencia
+## Advertencia de uso
 **Al utilizar BlockTheSpot asumes toda responsabilidad subyacente.**    
 Spotify suspenderá indefinidamente las cuentas de usuario que utilicen cualquier forma de ad-block al violar los términos y condiciones de uso. Medida implementada el 01/03/2019.
 
-*Pero a modo de apunte, por mi experiencia personal puedo decir que tras 2 años utilizándo este método, no he tenido problemas de ningún tipo.*
+*Pero a modo de apunte, por mi experiencia personal, puedo decir que tras 2 años utilizándo este método no he tenido problemas de ningún tipo.*
