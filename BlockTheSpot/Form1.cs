@@ -129,7 +129,7 @@ namespace BlockTheSpot
             {
                 try
                 {
-                    using (WebClient client = new WebClient()) { client.DownloadFile("https://upgrade.spotify.com/upgrade/client/win32-x86/spotify_installer-1.1.4.197.g92d52c4f-13.exe", $"{Path.GetTempPath()}spotify_installer-1.1.4.197.g92d52c4f-13.exe"); }
+                    using (WebClient client = new WebClient()) { client.DownloadFile("http://upgrade.spotify.com/upgrade/client/win32-x86/spotify_installer-1.1.4.197.g92d52c4f-13.exe", $"{Path.GetTempPath()}spotify_installer-1.1.4.197.g92d52c4f-13.exe"); }
                 }
                 catch (WebException)
                 {
