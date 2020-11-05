@@ -9,8 +9,8 @@
 **Estado:** Funcionando en 01/11/2020 :white_check_mark:
 
 **BlockTheSpot** (BTS en adelante) **lleva a cabo las siguientes funciones:**   
-Al pulsar el botón principal, BTS instala automáticamente la última versión de Spotify testada para el propósito de este repositorio (*spotify_installer-1.1.4.197.g92d52c4f-13.exe*), tras lo cual, introduce un archivo dll (natutils.dll), encargado de bloquear banners/vídeos/audios publicitarios, en el directorio principal de Spotify ubicado en la siguiente ruta: *%appdata%\Spotify*. A continuación, BTS restringe los permisos de acceso al directorio *%localappdata%\Spotify\Update* con el fin de evitar actualizaciones automáticas por parte de Spotify.    
-Por último, al pulsar el botón secundario, instala la última versión actualizada de Spotify eliminándo toda modificación mencionada anteriormente, restableciendo así la aplicación sin dejar rastro en su sistema operativo.
+Al pulsar el botón principal, BTS instala automáticamente la última versión de Spotify testada para el propósito de este repositorio (*spotify_installer-1.1.4.197.g92d52c4f-13.exe*), tras lo cual, introduce un archivo dll (natutils.dll), encargado de bloquear banners/vídeos/audios publicitarios, en el directorio principal de Spotify: *%appdata%\Spotify*. A continuación, BTS restringe los permisos de acceso al directorio *%localappdata%\Spotify\Update* con el fin de evitar actualizaciones automáticas por parte de Spotify.    
+Por último, al pulsar el botón secundario, instala la última versión actualizada de Spotify eliminándo toda modificación mencionada anteriormente, restableciendo así la aplicación sin dejar trazas en su sistema operativo.
 
 **Los archivos utilizados en este proyecto proceden de las siguientes fuentes, citadas a continuación.**   
 *natutils.dll*: https://raw.githubusercontent.com/master131/BlockTheSpot/master/netutils.dll        
