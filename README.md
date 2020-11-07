@@ -20,8 +20,8 @@ Por último, al pulsar el botón secundario, instala la última versión actuali
 [Análisis antivírico realizado por VirusTotal.](https://www.virustotal.com/gui/file/11bdaf7d5faab42d251745a9b9b5a5611747bad864bd0f28a190b19cb27e6986/detection)
 
 ## Requisitos
-- Windows 7 o superior.
-- [.NET Framework 4.5](https://www.microsoft.com/es-es/download/details.aspx?id=30653) o superior.
+1️⃣ Windows 7 o superior.
+2️⃣ [.NET Framework 4.5](https://www.microsoft.com/es-es/download/details.aspx?id=30653) o superior.
 
 ## Características
 - Bloquea todos los anuncios (banners, vídeos y audios).
