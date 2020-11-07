@@ -26,7 +26,7 @@ Por último, al pulsar el botón secundario, instala la última versión actuali
 - Mantiene las funcionalidades de lista de amigos, vídeo vertical y rádio.
 - Restablece Spotify a su estado original y actualiza automáticamente.
 
-:warning: Requerido [.NET Framework 4.5](https://www.microsoft.com/es-es/download/details.aspx?id=30653) o superior.
+:warning: Requerido [.NET Framework 4.5](https://www.microsoft.com/es-es/download/confirmation.aspx?id=30653) o superior.
 
 :warning: BlockTheSpot no es compatible con la versión Microsoft Store de Spotify.
 
