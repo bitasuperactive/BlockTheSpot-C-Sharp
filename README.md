@@ -20,13 +20,11 @@ Por último, al pulsar el botón secundario, instala la última versión actuali
 [Análisis antivírico realizado por VirusTotal.](https://www.virustotal.com/gui/file/11bdaf7d5faab42d251745a9b9b5a5611747bad864bd0f28a190b19cb27e6986/detection)
 
 ## Características
-- Solo Windows 7 o superior.
+- Solo Windows (requerido [.NET Framework 4.5](https://www.microsoft.com/es-es/download/confirmation.aspx?id=30653) o superior).
 - Bloquea todos los anuncios (banners, vídeos y audios).
 - Desbloquea la función "saltar" para cualquier canción.
 - Mantiene las funcionalidades de lista de amigos, vídeo vertical y rádio.
 - Restablece Spotify a su estado original y actualiza automáticamente.
-
-:warning: Requerido [.NET Framework 4.5](https://www.microsoft.com/es-es/download/confirmation.aspx?id=30653) o superior.
 
 :warning: BlockTheSpot no es compatible con la versión Microsoft Store de Spotify.
 
