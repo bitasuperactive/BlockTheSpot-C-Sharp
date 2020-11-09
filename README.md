@@ -33,4 +33,4 @@ Al pulsar el botón secundario, instala la última versión actualizada de Spoti
 **Al utilizar BlockTheSpot asumes toda responsabilidad subyacente.**    
 Spotify suspenderá indefinidamente las cuentas de usuario que utilicen cualquier forma de ad-block al violar los términos y condiciones de uso. Medida implementada el 01/03/2019.
 
-*Pero a modo de apunte, por mi experiencia personal puedo decir que, tras 2 años utilizándo este método, no he tenido problemas de ningún tipo.*
+*Pero a modo de apunte, puedo decir que tras 2 años utilizándo este método no he tenido problemas de ningún tipo.*
