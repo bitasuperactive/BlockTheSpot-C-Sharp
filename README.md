@@ -17,7 +17,7 @@ Al pulsar el botón secundario, instala la última versión actualizada de Spoti
 *spotify_installer-1.1.4.197.g92d52c4f-13.exe*: https://upgrade.spotify.com/upgrade/client/win32-x86/spotify_installer-1.1.4.197.g92d52c4f-13.exe       
 *spotify_installer-update*: https://download.scdn.co/SpotifySetup.exe
 
-[Análisis antivírico realizado por VirusTotal.](https://www.virustotal.com/gui/file/11bdaf7d5faab42d251745a9b9b5a5611747bad864bd0f28a190b19cb27e6986/detection)
+[Análisis antivírico realizado por VirusTotal.](https://www.virustotal.com/gui/file/2fb6d4212bab3b91b4080ae373b75eade84325c813a516ee8c15b232add24f65/detection)
 
 ## Características
 - Solo Windows (requerido [.NET Framework 4.5](https://www.microsoft.com/es-es/download/confirmation.aspx?id=30653) o superior).
