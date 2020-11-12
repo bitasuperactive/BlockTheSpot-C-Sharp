@@ -69,7 +69,7 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Resources\spotify icon.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup />
   <PropertyGroup />
@@ -144,7 +144,7 @@
     <None Include="Resources\WorkingImage.png" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\spotify icon.ico" />
+    <Content Include="Resources\Icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
