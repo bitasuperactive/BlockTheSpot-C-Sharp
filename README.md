@@ -16,7 +16,7 @@ Mediante el botón secundario, BTS instala la última versión actualizada de Sp
 *spotify_installer-1.1.4.197.g92d52c4f-13.exe*: https://upgrade.spotify.com/upgrade/client/win32-x86/spotify_installer-1.1.4.197.g92d52c4f-13.exe       
 *spotify_installer-update*: https://download.scdn.co/SpotifySetup.exe
 
-[Análisis antivírico realizado por VirusTotal.com](https://www.virustotal.com/gui/file/2fb6d4212bab3b91b4080ae373b75eade84325c813a516ee8c15b232add24f65/detection)
+[Análisis antivírico realizado por VirusTotal.com](https://www.virustotal.com/gui/file/82e842b08a02d2ce9dbaa7050ca48886efd46c64876f55ffe973de8e98814572/detection)
 
 ## Características
 - Solo Windows (requerido [.NET Framework 4.5](https://www.microsoft.com/es-es/download/confirmation.aspx?id=30653) o superior).
