@@ -1,5 +1,7 @@
 <img src="https://github.com/bitasuperactive/BlockTheSpot-C-Sharp/blob/master/doc/logo.png">
 
+<img src="https://github.com/bitasuperactive/BlockTheSpot-C-Sharp/blob/master/doc/blockthespot.png" width="203"/>
+
 **Con un solo clic, no más anuncios en Spotify.**
 
 [Descargas y Notas de Publicación](https://github.com/bitasuperactive/BlockTheSpot-C-Sharp/releases) | [YouTube](https://www.youtube.com/c/bitasuperactive) | Basado en *[BlockTheSpot by @master131](https://github.com/master131/BlockTheSpot)*
