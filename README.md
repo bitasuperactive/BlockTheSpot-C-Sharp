@@ -1,6 +1,6 @@
 <img src="https://github.com/bitasuperactive/BlockTheSpot-C-Sharp/blob/master/doc/logo.png">
 
-<img src="https://github.com/bitasuperactive/BlockTheSpot-C-Sharp/blob/master/doc/maxresdefault.jpg">
+[<img src="https://github.com/bitasuperactive/BlockTheSpot-C-Sharp/blob/master/doc/maxresdefault.jpg">](https://www.youtube.com/c/bitasuperactive)
 
 **Con un solo clic, no más anuncios en Spotify.**
 
