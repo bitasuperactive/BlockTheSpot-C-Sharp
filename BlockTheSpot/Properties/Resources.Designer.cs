@@ -93,6 +93,16 @@ namespace BlockTheSpot.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap SpotifyGIF {
+            get {
+                object obj = ResourceManager.GetObject("SpotifyGIF", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap WorkingImage {
             get {
                 object obj = ResourceManager.GetObject("WorkingImage", resourceCulture);

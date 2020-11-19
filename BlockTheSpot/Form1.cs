@@ -9,6 +9,7 @@ using System.Security.AccessControl;
 using System.Threading;
 using Microsoft.Win32;
 using System.ComponentModel;
+using System.Threading.Tasks;
 
 namespace BlockTheSpot
 {
@@ -101,7 +102,7 @@ namespace BlockTheSpot
         private void ResetButton_Click(object sender, EventArgs e) => ResetButtonMethod();
         private void HelpButton_Click(object sender, EventArgs e) => Process.Start("https://github.com/bitasuperactive/BlockTheSpot-C-Sharp");
 
-        private void PatchButtonMethod()
+        private async void PatchButtonMethod()
         {
             this.Cursor = Cursors.Default;
             WorkingPictureBox.BringToFront();
@@ -109,15 +110,17 @@ namespace BlockTheSpot
 
             try
             {
-                TerminateSpotify();
-                SpotifyDowngrade();
-                InjectNatutils();
-                DisableAutoUpdate();
+                await Task.Run(() => TerminateSpotify());
+                await Task.Run(() => SpotifyDowngrade());
+                await Task.Run(() => InjectNatutils());
+                await Task.Run(() => DisableAutoUpdate());
             }
             catch (Exception exception)
             {
+                spotifyGIF.Enabled = false;
                 MessageBox.Show(this, $"Error: {exception}", "BlockTheSpot", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 WorkingPictureBox.Visible = false;
+                spotifyGIF.Enabled = true;
                 return;
             }
             
@@ -128,7 +131,7 @@ namespace BlockTheSpot
             Application.Exit();
         }
 
-        private void ResetButtonMethod()
+        private async void ResetButtonMethod()
         {
             this.Cursor = Cursors.Default;
             WorkingPictureBox.BringToFront();
@@ -136,14 +139,16 @@ namespace BlockTheSpot
 
             try
             {
-                TerminateSpotify();
-                ClearSpotifyDir();
-                UpdateSpotify();
+                await Task.Run(() => TerminateSpotify());
+                await Task.Run(() => ClearSpotifyDir());
+                await Task.Run(() => UpdateSpotify());
             }
             catch (Exception exception)
             {
+                spotifyGIF.Enabled = false;
                 MessageBox.Show(this, $"Error: {exception}", "BlockTheSpot", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 WorkingPictureBox.Visible = false;
+                spotifyGIF.Enabled = true;
                 return;
             }
 
@@ -264,7 +269,9 @@ namespace BlockTheSpot
             }
             catch (WebException)
             {
+                spotifyGIF.Enabled = false;
                 MessageBox.Show(this, "No ha sido posible actualizar Spotify a su última versión." + Environment.NewLine + "Puede llevar a cabo facilmente esta actualización accediendo al apartado de [Configuración], [Acerca de Spotify] y [Haz clic para descargar].", "BlockTheSpot", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                spotifyGIF.Enabled = true;
             }
         }
         #endregion
