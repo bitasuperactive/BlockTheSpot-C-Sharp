@@ -9,11 +9,9 @@ using System.Diagnostics;
 using System.Security.AccessControl;
 using System.Management.Automation;
 using System.Threading;
-using System.ComponentModel;
-using ThreadState = System.Threading.ThreadState;
-using System.Configuration;
+using Microsoft.Win32;
 
-namespace BlockTheSpot
+namespace BlockTheSpot // Admin Privs ¿?  // Test Microsoft Store Spotify detection  // async useless
 {
     public partial class BlockTheSpot : Form
     {
@@ -25,53 +23,33 @@ namespace BlockTheSpot
             InitializeComponent();
         }
 
-        private async void BlockTheSpot_Load(object sender, EventArgs e)
+        private void BlockTheSpot_Load(object sender, EventArgs e)
         {
-            if (Properties.Settings.Default.AdminRightsNeeded.Equals(false))
-                await CheckRequirements();
-            else
-            {
-                if (!new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator))
-                {
-                    MessageBox.Show(this, "Permisos de Administrador requeridos. BlockTheSpot se cerrará.", "BlockTheSpot", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Application.Exit();
-                }
-                PatchButtonMethod();
-            }
+            CheckRequirements();
         }
 
-        private Task CheckRequirements()
+        private void CheckRequirements()
         {
             if (Process.GetProcesses().Count(process => process.ProcessName == Process.GetCurrentProcess().ProcessName) > 1)
             {
                 MessageBox.Show("BlockTheSpot no responde.", "KCI", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 Application.Exit();
             }
-
-            else if (new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator))
+            else if (Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\PackageRepository\Extensions\windows.protocol\spotify") != null)
+            // Alternative: SOFTWARE\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\PackageRepository\Packages\
             {
-                MessageBox.Show("Reinicia la aplicación sin permisos de administrador.", "KCI", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(this, "La versión Microsoft Store de Spotify no es compatible con esta aplicación." + Environment.NewLine + "Desinstala Spotify y reinicia BlockTheSpot.", "BlockTheSpot", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 Application.Exit();
             }
-
-            else if (Directory.Exists($@"{Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)}\WindowsApps"))
-                if (Directory.EnumerateDirectories($@"{Environment.GetFolderPath(Environment.SpecialFolder.ProgramFiles)}\WindowsApps").Any(n => n.IndexOf("SpotifyAB.SpotifyMusic", StringComparison.OrdinalIgnoreCase) > 0))
-                {
-                    MessageBox.Show(this, "Microsoft Store Spotify no es compatible con esta aplicación. Desinstala esta versión y reinicia BlockTheSpot." + Environment.NewLine + Environment.NewLine + "Para realizar la desinstalación, busca la aplicación en el menú de inicio, haz clic derecho en ella y selecciona [Desinstalar].", "BlockTheSpot", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    Application.Exit();
-                }
-
-            else if (File.Exists($@"{SpotifyDir}\Spotify.exe"))
-                {
-                    if (!DowngradeRequired() && File.Exists($@"{SpotifyDir}\netutils.dll")) SpotifyPictureBox.Image = Properties.Resources.AddsOffImage;
-                }
-                else
-                {
-                    PatchButton.Text = "Instalar Spotify y Bloquear anuncios";
-                    ResetButton.Enabled = false;
-                }
-
-            return Task.CompletedTask;
+            else if (new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator))
+            {
+                MessageBox.Show("Por favor inicia BlockTheSpot sin privilegios de Administrador.", "KCI", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                Application.Exit();
+            }
+            else if (!DowngradeRequired() && File.Exists($@"{SpotifyDir}\netutils.dll"))
+                SpotifyPictureBox.Image = Properties.Resources.AddsOffImage;
+            else
+                ResetButton.Enabled = false;
         }
 
         private bool DowngradeRequired()
@@ -87,156 +65,121 @@ namespace BlockTheSpot
         #region Buttons
         private void PatchButton_Click(object sender, EventArgs e) => PatchButtonMethod();
         private void ResetButton_Click(object sender, EventArgs e) => ResetButtonMethod();
-        private void WarningButton_Click(object sender, EventArgs e) => MessageBox.Show(this, "Spotify suspenderá indefinidamente las cuentas de usuario que utilicen cualquier forma de ad-block (como BlockTheSpot) al violar los términos y condiciones de uso." + Environment.NewLine + "Medida implementada el 01/03/2019." + Environment.NewLine + Environment.NewLine + "Al utilizar BlockTheSpot asumes toda responsabilidad subyacente.", "BlockTheSpot", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-        private void ByButton_Click(object sender, EventArgs e) => Process.Start("https://www.youtube.com/channel/UCc-AA6VaZh81DYYCrSAMS5w?");
+        private void BlockTheSpot_HelpButtonClicked(object sender, System.ComponentModel.CancelEventArgs e) => Process.Start("https://github.com/bitasuperactive/BlockTheSpot-OneClick");
 
-        private async void PatchButtonMethod() //Make Update portable (change permissions)
+        private async void PatchButtonMethod()
         {
-            if (!File.Exists($@"{SpotifyDir}\Spotify.exe")) //If not installed, user has to install it manually if does not want a portable installation
-            {
-                DialogResult warningMessage = MessageBox.Show(this, "Spotify no instalado. Es recomendable pre-instalar Spotify manualmente, de lo contrario se instalará de forma portable en los directorios AppData y LocalAppData." + Environment.NewLine +"¿Deseas continuar de todas formas?", "BlockTheSpot", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
-                if (warningMessage == DialogResult.No)
-                {
-                    Process.Start("https://www.spotify.com/es/download/"); //Maybe download version 1.1.4.197
-                    return;
-                }
-            }
+            WorkingPictureBox.BringToFront();
+            WorkingPictureBox.Visible = true;
 
-            CentralPictureBox.Visible = true; label0.Visible = false;
-
-            foreach (Process process in Process.GetProcessesByName("Spotify")) { process.Kill(); }
+            TerminateSpotify();
 
             try
             {
-                if (Properties.Settings.Default.AdminRightsNeeded) goto CONTINUE;
-                await DownloadRequirements();
                 await SpotifyDowngrade();
-                CONTINUE:
-                await DisableAutoUpdate();
+                InjectNatutils();
+                DisableAutoUpdate();
+                PowerShell.Create().AddScript(@"$ws = New-Object -ComObject WScript.Shell; $s = $ws.CreateShortcut($env:USERPROFILE + '\Desktop\Spotify.lnk'); $S.TargetPath = $env:APPDATA + '\Spotify\Spotify.exe'; $S.Save()").Invoke();
+                Finish(true, "¡Todo listo! Gracias por utilizar BlockTheSpot.");
             }
             catch (Exception exception)
             {
                 MessageBox.Show(this, $"Error: {exception}", "BlockTheSpot", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                label4.Visible = label3.Visible = label2.Visible = label1.Visible = false;
-                CentralPictureBox.Visible = false;
-                label0.Visible = true;
+                WorkingPictureBox.Visible = false;
                 return;
             }
-
-            PowerShell.Create().AddScript(@"$ws = New-Object -ComObject WScript.Shell; $s = $ws.CreateShortcut($env:USERPROFILE + '\Desktop\Spotify.lnk'); $S.TargetPath = $env:APPDATA + '\Spotify\Spotify.exe'; $S.Save()").Invoke();
-            
-            Terminate(true, "¡Anuncios bloqueados con éxito!");
         }
 
         private async void ResetButtonMethod()
         {
-            CentralPictureBox.Visible = true; label0.Text = "Restableciendo Spotify";
-            foreach (Process process in Process.GetProcessesByName("Spotify")) { process.Kill(); }
-            await Task.Delay(1000);
+            WorkingPictureBox.BringToFront();
+            WorkingPictureBox.Visible = true;
+
+            TerminateSpotify();
 
             try
             {
-                File.Delete($@"{SpotifyDir}\netutils.dll");
-                FileSecurity(UpdateFolderDir, FileSystemRights.FullControl, AccessControlType.Allow, true);
-                Directory.Delete(UpdateFolderDir, true);
+                ClearSpotify();
+                await UpdateSpotify();
+                Finish(false, "¡Spotify ha sido restablecido con éxito!" + Environment.NewLine + "Gracias por utilizar BlockTheSpot.");
             }
-            catch (UnauthorizedAccessException)
+            catch (Exception exception)
             {
-                MessageBox.Show($"No ha sido posible acceder a las rutas: \"{SpotifyDir}\\netutils.dll\" \"{UpdateFolderDir}\\\"." + Environment.NewLine + "Finaliza Spotify desde el administrador de tareas, y comprueba que tienes privilegios suficientes para eliminar los directorios mencionados.", "BlockTheSpot", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                CentralPictureBox.Visible = false;
-                label0.Text = "Selecciona la opción deseada";
+                MessageBox.Show(this, $"Error: {exception}", "BlockTheSpot", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                WorkingPictureBox.Visible = false;
                 return;
             }
-            catch (DirectoryNotFoundException) { }
-
-            Terminate(false, "¡Anuncios restablecidos con éxito!" + Environment.NewLine + Environment.NewLine + @"Recuerda actualizar Spotify desde Configuración \ Acerca de Spotify (al final del todo).");
         }
         #endregion
 
-        private async Task DownloadRequirements()
+        private void TerminateSpotify()
         {
-            label1.Visible = true;
-            await Task.Delay(1000);
+            foreach (Process process in Process.GetProcessesByName("Spotify")) { process.Kill(); }
+            while (Process.GetProcessesByName("Spotify").Length > 0) Thread.Sleep(100);
+        }
+
+        #region Patch Methods
+        private async Task SpotifyDowngrade()
+        {
+            if (DowngradeRequired())
+            {
+                try
+                {
+                    using (WebClient client = new WebClient()) { client.DownloadFile("http://upgrade.spotify.com/upgrade/client/win32-x86/spotify_installer-1.1.4.197.g92d52c4f-13.exe", $"{Path.GetTempPath()}spotify_installer-1.1.4.197.g92d52c4f-13.exe"); }
+                }
+                catch (WebException)
+                {
+                    throw new Exception("No ha sido posible descargar los archivos necesarios." + Environment.NewLine + "Comprueba tu conexión a internet e inténtalo de nuevo.");
+                }
+
+                if (File.Exists($@"{SpotifyDir}\Spotify.exe"))
+                {
+                    PowerShell.Create().AddScript($"cmd /C \"`\"{Path.GetTempPath()}spotify_installer-1.1.4.197.g92d52c4f-13.exe`\" /extract \"\"{SpotifyDir}\"").Invoke();
+                }
+                
+                if (DowngradeRequired())
+                {
+                    Process.Start($"{Path.GetTempPath()}spotify_installer-1.1.4.197.g92d52c4f-13.exe");
+
+                    while (DowngradeRequired()) await Task.Delay(1000);
+
+                    //File.Delete($"{Path.GetTempPath()}spotify_installer-1.1.4.197.g92d52c4f-13.exe");  // Conflict
+
+                    TerminateSpotify();
+                }
+            }
+        }
+
+        private void InjectNatutils()
+        {
             try
             {
-                using (WebClient client = new WebClient()) { client.DownloadFile("http://upgrade.spotify.com/upgrade/client/win32-x86/spotify_installer-1.1.4.197.g92d52c4f-13.exe", $"{Path.GetTempPath()}spotify_installer-1.1.4.197.g92d52c4f-13.exe"); }
                 using (WebClient client = new WebClient()) { client.DownloadFile("https://raw.githubusercontent.com/master131/BlockTheSpot/master/netutils.dll", $"{Path.GetTempPath()}netutils.dll"); }
+
+                if (File.Exists($"{Path.GetTempPath()}netutils.dll"))
+                {
+                    File.Copy($"{Path.GetTempPath()}netutils.dll", $@"{SpotifyDir}\netutils.dll", true);
+                    File.Delete($"{Path.GetTempPath()}netutils.dll");
+                }
+
+                if (File.Exists($@"{SpotifyDir}\SpotifyMigrator.exe"))
+                    File.Delete($@"{SpotifyDir}\SpotifyMigrator.exe");
+
+                if (File.Exists($@"{SpotifyDir}\SpotifyStartupTask.exe"))
+                    File.Delete($@"{SpotifyDir}\SpotifyStartupTask.exe");
             }
             catch (WebException)
             {
-                throw new Exception("No ha sido posible realizar la descarga." + Environment.NewLine + "Finaliza Spotify desde el administrador de tareas, y comprueba tu conexión a internet.");
-            }
-        }
-
-        private async Task SpotifyDowngrade()
-        {
-            label2.Visible = true;
-            await Task.Delay(1000);
-
-            if (DowngradeRequired())
-            {
-                //Improve catch exception & Wait to finish. Maybe download folders directly
-                try { PowerShell.Create().AddScript("$ErrorActionPreference = \"Stop\";" + Path.GetTempPath() + ".\\spotify_installer-1.1.4.197.g92d52c4f-13.exe /extract \"" + SpotifyDir + "\"").Invoke(); }
-                catch (Exception)
-                {
-                    File.Copy($"{Path.GetTempPath()}spotify_installer-1.1.4.197.g92d52c4f-13.exe", AppDomain.CurrentDomain.BaseDirectory + "spotify_installer-1.1.4.197.g92d52c4f-13.exe", true);
-                    MessageBox.Show("No ha sido posible instalar Spotify v1.1.4.197." + Environment.NewLine + "Deberás realizar la instalación manualmente utilizando el instalador que encontrarás en el directorio de BlockTheSpot." + Environment.NewLine + "Mientras tanto, BlockTheSpot se mantendrá a la espera.", "BlockTheSpot", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-
-                while (DowngradeRequired()) await Task.Delay(1000);
-            }
-
-            label3.Visible = true;
-            await Task.Delay(1000);
-
-            try
-            {
-                File.Delete($@"{SpotifyDir}\SpotifyMigrator.exe");
-                File.Delete($@"{SpotifyDir}\SpotifyStartupTask.exe");
-                File.Copy($"{Path.GetTempPath()}netutils.dll", $@"{SpotifyDir}\netutils.dll", true);
+                throw new WebException("No ha sido posible descargar los archivos necesarios." + Environment.NewLine + "Comprueba tu conexión a internet e inténtalo de nuevo.");
             }
             catch (UnauthorizedAccessException)
             {
-                throw new Exception($"No ha sido posible acceder a la ruta: \"{SpotifyDir}\\\"." + Environment.NewLine + Environment.NewLine + "Finaliza Spotify desde el administrador de tareas, y comprueba que tienes privilegios suficientes para modificar los directorios mencionados.");
+                throw new UnauthorizedAccessException($"No ha sido posible acceder a la siguiente ruta: \"{SpotifyDir}\\\"." + Environment.NewLine + Environment.NewLine + "Prueba a ejecutar BlockTheSpot como Administrador.");
             }
-            catch (DirectoryNotFoundException) { }
-
-            File.Delete($"{Path.GetTempPath()}spotify_installer-1.1.4.197.g92d52c4f-13.exe");
-
-            File.Delete($"{Path.GetTempPath()}netutils.dll");
         }
 
-        private async Task DisableAutoUpdate()
+        private void DisableAutoUpdate() // async?
         {
-            //Restart app with admin rights
-
-            if (Properties.Settings.Default.AdminRightsNeeded.Equals(false))
-            {
-                ProcessStartInfo restartApp = new ProcessStartInfo(AppDomain.CurrentDomain.BaseDirectory); //Check
-                restartApp.UseShellExecute = true;
-                restartApp.Verb = "runas";
-
-                try
-                {
-                    Process.Start(restartApp);
-                }
-                catch (Win32Exception exception)
-                {
-                    if (exception.NativeErrorCode == 1223) //The operation was canceled by the user.
-                    {
-                        MessageBox.Show(this, "Permisos de administrador no otorgados. BlockTheSpot se cerrará.", "BlockTheSpot", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        Environment.Exit(0); //?
-                    }
-                }
-                finally
-                {
-                    Properties.Settings.Default.AdminRightsNeeded = true;
-                }
-            }
-
-            label4.Visible = true;
-            await Task.Delay(1000);
-
             if (Directory.Exists(UpdateFolderDir))
             {
                 FileSecurity(UpdateFolderDir, FileSystemRights.FullControl, AccessControlType.Allow, true);
@@ -245,54 +188,97 @@ namespace BlockTheSpot
             Directory.CreateDirectory(UpdateFolderDir);
             FileSecurity(UpdateFolderDir, FileSystemRights.FullControl, AccessControlType.Deny, true);
         }
+        #endregion
 
-        private void Terminate(bool patch, string messageBoxText)
+        #region Reset Methods
+        private void ClearSpotify()
         {
-            if(patch) SpotifyPictureBox.Image = Properties.Resources.AddsOffImage; else SpotifyPictureBox.Image = Properties.Resources.AddsOnImage;
+            try
+            {
+                FileSecurity(UpdateFolderDir, FileSystemRights.FullControl, AccessControlType.Allow, true);
 
-            label4.Visible = label3.Visible = label2.Visible = label1.Visible = false;
-            label0.Text = "Todo listo"; label0.Visible = true;
+                if (Directory.Exists(UpdateFolderDir))
+                    Directory.Delete(UpdateFolderDir, true);
 
-            CentralPictureBox.Image = Properties.Resources.DoneImage; CentralPictureBox.Visible = true;
+                if (File.Exists($@"{SpotifyDir}\netutils.dll"))
+                    File.Delete($@"{SpotifyDir}\netutils.dll");
+            }
+            catch (UnauthorizedAccessException)
+            {
+                throw new UnauthorizedAccessException($"Los permisos de acceso a los directorios, mencionados a continuación, han sido restringidos utilizando privilegios de Administrador, eliminelos y vuelva a intentarlo: \"{SpotifyDir}\\netutils.dll\" \"{UpdateFolderDir}\\\"");
+            }
+        }
 
-            MessageBox.Show(messageBoxText, "BlockTheSpot", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        private async Task UpdateSpotify()
+        {
+            try
+            {
+                using (WebClient client = new WebClient()) { client.DownloadFile("https://download.scdn.co/SpotifySetup.exe", $"{Path.GetTempPath()}spotify_installer-update.exe"); }
 
-            try { Process.Start($@"{SpotifyDir}\Spotify.exe"); } catch { }
+                Process.Start($"{Path.GetTempPath()}spotify_installer-update.exe");
+
+                while (!File.Exists($@"{SpotifyDir}\Spotify.exe") || !DowngradeRequired()) await Task.Delay(1000);
+
+                //File.Delete($"{Path.GetTempPath()}spotify_installer-update.exe");  // Conflict
+            }
+            catch (WebException)
+            {
+                MessageBox.Show(this, "No ha sido posible actualizar Spotify a su última versión." + Environment.NewLine + "Puede llevar a cabo facilmente esta actualización accediendo al apartado de [Configuración], [Acerca de Spotify] directamente desde los ajustes de Spotify.", "BlockTheSpot", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+        }
+        #endregion
+
+        private void Finish(bool patch, string message)
+        {
+            if (patch)
+                SpotifyPictureBox.Image = Properties.Resources.AddsOffImage;
+            else
+                SpotifyPictureBox.Image = Properties.Resources.AddsOnImage;
+
+            WorkingPictureBox.Image = Properties.Resources.DoneImage;
+
+            this.TopMost = true; MessageBox.Show(this, message, "BlockTheSpot", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+            if (patch)
+                Process.Start($@"{SpotifyDir}\Spotify.exe");
 
             Application.Exit();
         }
 
-        private void FileSecurity(string dirPath, FileSystemRights rights, AccessControlType controlType, bool addRule)
-        {
-            DirectorySecurity fSecurity = Directory.GetAccessControl(dirPath);
-            fSecurity.SetAccessRuleProtection(false, false);
-            AuthorizationRuleCollection rules = fSecurity.GetAccessRules(true, true, typeof(NTAccount));
-            foreach (FileSystemAccessRule rule in rules) fSecurity.RemoveAccessRule(rule);
-
-            if (addRule) fSecurity.AddAccessRule(new FileSystemAccessRule(WindowsIdentity.GetCurrent().Name, rights, controlType));
-            if (!addRule) fSecurity.RemoveAccessRule(new FileSystemAccessRule(WindowsIdentity.GetCurrent().Name, rights, controlType));
-
-            Directory.SetAccessControl(dirPath, fSecurity);
-        }
-
-        //private bool TheadIsAlive()
+        //public async Task HiddenProcess(string processFile, string processArguments)
         //{
-        //    try
-        //    {
-        //        if (thread.ThreadState.Equals(ThreadState.Running) || thread.ThreadState.Equals(ThreadState.Stopped)) return true;
-        //    }
-        //    catch (NullReferenceException) { }
-        //    return false;
+        //    ProcessStartInfo hiddenProcess = new ProcessStartInfo();
+        //    hiddenProcess.FileName = processFile;
+        //    hiddenProcess.Arguments = processArguments;
+        //    hiddenProcess.WindowStyle = ProcessWindowStyle.Hidden;
+        //    hiddenProcess.CreateNoWindow = true;
+        //    await Task.Run(() => Process.Start(hiddenProcess).WaitForExit());
         //}
 
-        private void BlockTheSpot_FormClosing(object sender, FormClosingEventArgs close) //Check if thread is running without a variable and pause running thread
+        private void FileSecurity(string dirPath, FileSystemRights rights, AccessControlType controlType, bool addRule)
         {
-            if (close.CloseReason == CloseReason.UserClosing)
+            if (Directory.Exists(dirPath))
             {
-                DialogResult exitMessage = MessageBox.Show(this, "¿Deseas cerrar la aplicación?", "BlockTheSpot", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
-                if (exitMessage == DialogResult.No) close.Cancel = true;
+                DirectorySecurity fSecurity = Directory.GetAccessControl(dirPath);
+                fSecurity.SetAccessRuleProtection(false, false);
+                AuthorizationRuleCollection rules = fSecurity.GetAccessRules(true, true, typeof(NTAccount));
+                foreach (FileSystemAccessRule rule in rules) fSecurity.RemoveAccessRule(rule);
+
+                if (addRule) fSecurity.AddAccessRule(new FileSystemAccessRule(WindowsIdentity.GetCurrent().Name, rights, controlType));
+                /*else, no if*/ if (!addRule) fSecurity.RemoveAccessRule(new FileSystemAccessRule(WindowsIdentity.GetCurrent().Name, rights, controlType));
+
+                Directory.SetAccessControl(dirPath, fSecurity);
             }
-            //Properties.Settings.Default.Reset();
+        }
+
+        private void BlockTheSpot_FormClosing(object sender, FormClosingEventArgs close)
+        {
+            if (close.CloseReason == CloseReason.UserClosing && WorkingPictureBox.Visible)
+            {
+                DialogResult exitMessage = MessageBox.Show(this, "BlockTheSpot no ha terminado su trabajo, ¿deseas cerrar la aplicación de todas formas?", "BlockTheSpot", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+                if (exitMessage == DialogResult.No)
+                    close.Cancel = true;
+            }
         }
     }
 }
