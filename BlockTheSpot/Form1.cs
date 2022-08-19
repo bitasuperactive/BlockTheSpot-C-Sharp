@@ -52,6 +52,8 @@ namespace BlockTheSpot
             }
             else
                 ResetButton.Enabled = false;
+
+            if (!File.Exists($@"{SpotifyDir}\Spotify.exe")) PatchButton.Text = "Instalar Spotify y" + Environment.NewLine + "Bloquear anuncios";
         }
 
         private bool DowngradeRequired()
@@ -144,11 +146,10 @@ namespace BlockTheSpot
                 if (DowngradeRequired())
                 {
                     Process.Start($"{Path.GetTempPath()}spotify_installer-1.1.4.197.g92d52c4f-13.exe").WaitForExit();
-                    //while (Process.GetProcessesByName("spotify_installer-1.1.4.197.g92d52c4f-13.exe").Length > 0) Thread.Sleep(100);
 
-                    try { File.Delete($"{Path.GetTempPath()}spotify_installer-1.1.4.197.g92d52c4f-13.exe"); } catch (Exception) { }  // Conflict?
+                    try { File.Delete($"{Path.GetTempPath()}spotify_installer-1.1.4.197.g92d52c4f-13.exe"); } catch (Exception) { }  // Conflict
 
-                    TerminateSpotify(); // Conflict, cannot open spotify warning message?
+                    TerminateSpotify();
                 }
             }
         }
@@ -219,9 +220,8 @@ namespace BlockTheSpot
                 using (WebClient client = new WebClient()) { client.DownloadFile("https://download.scdn.co/SpotifySetup.exe", $"{Path.GetTempPath()}spotify_installer-update.exe"); }
 
                 Process.Start($"{Path.GetTempPath()}spotify_installer-update.exe").WaitForExit();
-                //while (Process.GetProcessesByName("spotify_installer-update.exe").Length > 0) Thread.Sleep(100);
 
-                try { File.Delete($"{Path.GetTempPath()}spotify_installer-update.exe"); } catch (Exception) { }  // Conflict?
+                try { File.Delete($"{Path.GetTempPath()}spotify_installer-update.exe"); } catch (Exception) { }  // Conflict
             }
             catch (WebException)
             {
