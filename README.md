@@ -2,7 +2,7 @@
 
 **Con un solo clic, no más anuncios en Spotify.**
 
-[Descargas y Notas de Publicación](https://github.com/bitasuperactive/BlockTheSpot-C-Sharp/releases) | [YouTube](https://www.youtube.com/c/bitasuperactive) | Basado en *[BlockTheSpot by @master131](https://github.com/master131/BlockTheSpot)*
+[Descargas y Notas de Publicación](https://github.com/bitasuperactive/BlockTheSpot-C-Sharp/releases) | *Basado en [BlockTheSpot by @master131](https://github.com/master131/BlockTheSpot)*
 
 ## Descripción
 **Estado:** Funcionando en 01/11/2020 :white_check_mark:
@@ -19,7 +19,7 @@ Mediante el botón secundario, BTS instala la última versión actualizada de Sp
 [Análisis antivírico realizado por VirusTotal.com](https://www.virustotal.com/gui/file/82e842b08a02d2ce9dbaa7050ca48886efd46c64876f55ffe973de8e98814572/detection)
 
 ## Características
-- Solo Windows (requerido [.NET Framework 4.5](https://www.microsoft.com/es-es/download/confirmation.aspx?id=30653) o superior).
+- Solo Windows (requerido [.NET Framework 4.7.2](https://dotnet.microsoft.com/en-us/download/dotnet-framework/thank-you/net472-web-installer) o superior).
 - Bloquea todos los anuncios (banners, vídeos y audios).
 - Desbloquea la función "saltar" para cualquier canción.
 - Mantiene las funcionalidades de lista de amigos, vídeo vertical y rádio.
