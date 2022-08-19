@@ -83,16 +83,6 @@ namespace BlockTheSpot.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap BackgroundButtonImage {
-            get {
-                object obj = ResourceManager.GetObject("BackgroundButtonImage", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap DoneImage {
             get {
                 object obj = ResourceManager.GetObject("DoneImage", resourceCulture);
@@ -106,26 +96,6 @@ namespace BlockTheSpot.Properties {
         internal static System.Drawing.Bitmap HelpImage {
             get {
                 object obj = ResourceManager.GetObject("HelpImage", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap HelpImage2 {
-            get {
-                object obj = ResourceManager.GetObject("HelpImage2", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
-        internal static System.Drawing.Bitmap PatchDoneImage {
-            get {
-                object obj = ResourceManager.GetObject("PatchDoneImage", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

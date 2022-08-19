@@ -26,7 +26,7 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>false</MapFileExtensions>
-    <ApplicationRevision>37</ApplicationRevision>
+    <ApplicationRevision>42</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -82,6 +82,9 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Management.Automation, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.PowerShell.5.ReferenceAssemblies.1.1.0\lib\net4\System.Management.Automation.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -148,9 +151,6 @@
     <None Include="Resources\PatchImage.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\BackgroundButtonImage.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\DoneImage.png" />
   </ItemGroup>
   <ItemGroup>
@@ -161,11 +161,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="icons8_spotify.ico" />
-    <None Include="Resources\HelpImage2.png" />
     <None Include="Resources\HelpImage.png" />
     <None Include="Resources\AddsOnImage.png" />
     <None Include="Resources\AddsOffImage.png" />
-    <None Include="Resources\PatchDoneImage.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

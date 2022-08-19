@@ -36,15 +36,15 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.CentralPictureBox = new System.Windows.Forms.PictureBox();
+            this.byButton = new Bunifu.Framework.UI.BunifuImageButton();
             this.WarningButton = new Bunifu.Framework.UI.BunifuFlatButton();
             this.ResetButton = new Bunifu.Framework.UI.BunifuFlatButton();
             this.PatchButton = new Bunifu.Framework.UI.BunifuFlatButton();
             this.SpotifyPictureBox = new System.Windows.Forms.PictureBox();
-            this.byButton = new Bunifu.Framework.UI.BunifuImageButton();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CentralPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SpotifyPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.byButton)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SpotifyPictureBox)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -150,6 +150,23 @@
             this.CentralPictureBox.TabIndex = 12;
             this.CentralPictureBox.TabStop = false;
             this.CentralPictureBox.Visible = false;
+            // 
+            // byButton
+            // 
+            this.byButton.BackColor = System.Drawing.Color.Transparent;
+            this.byButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.byButton.ErrorImage = null;
+            this.byButton.Image = global::BlockTheSpot.Properties.Resources.HelpImage;
+            this.byButton.ImageActive = null;
+            this.byButton.InitialImage = null;
+            this.byButton.Location = new System.Drawing.Point(185, 5);
+            this.byButton.Name = "byButton";
+            this.byButton.Size = new System.Drawing.Size(34, 30);
+            this.byButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.byButton.TabIndex = 0;
+            this.byButton.TabStop = false;
+            this.byButton.Zoom = 10;
+            this.byButton.Click += new System.EventHandler(this.byButton_Click);
             // 
             // WarningButton
             // 
@@ -270,23 +287,6 @@
             this.SpotifyPictureBox.TabIndex = 7;
             this.SpotifyPictureBox.TabStop = false;
             // 
-            // byButton
-            // 
-            this.byButton.BackColor = System.Drawing.Color.Transparent;
-            this.byButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.byButton.ErrorImage = null;
-            this.byButton.Image = global::BlockTheSpot.Properties.Resources.HelpImage2;
-            this.byButton.ImageActive = null;
-            this.byButton.InitialImage = null;
-            this.byButton.Location = new System.Drawing.Point(185, 5);
-            this.byButton.Name = "byButton";
-            this.byButton.Size = new System.Drawing.Size(34, 30);
-            this.byButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.byButton.TabIndex = 0;
-            this.byButton.TabStop = false;
-            this.byButton.Zoom = 10;
-            this.byButton.Click += new System.EventHandler(this.byButton_Click);
-            // 
             // BlockTheSpot
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -308,8 +308,8 @@
             this.Text = "BlockTheSpot";
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.CentralPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SpotifyPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.byButton)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.SpotifyPictureBox)).EndInit();
             this.ResumeLayout(false);
 
         }
