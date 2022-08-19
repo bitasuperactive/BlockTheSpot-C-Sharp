@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panel1 = new System.Windows.Forms.Panel();
+            this.SidePanel = new System.Windows.Forms.Panel();
             this.label0 = new System.Windows.Forms.Label();
             this.Separator = new Bunifu.Framework.UI.BunifuSeparator();
             this.label4 = new System.Windows.Forms.Label();
@@ -36,31 +36,31 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.CentralPictureBox = new System.Windows.Forms.PictureBox();
-            this.byButton = new Bunifu.Framework.UI.BunifuImageButton();
             this.WarningButton = new Bunifu.Framework.UI.BunifuFlatButton();
             this.ResetButton = new Bunifu.Framework.UI.BunifuFlatButton();
             this.PatchButton = new Bunifu.Framework.UI.BunifuFlatButton();
             this.SpotifyPictureBox = new System.Windows.Forms.PictureBox();
-            this.panel1.SuspendLayout();
+            this.ByButton = new Bunifu.Framework.UI.BunifuImageButton();
+            this.SidePanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.CentralPictureBox)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.byButton)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.SpotifyPictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ByButton)).BeginInit();
             this.SuspendLayout();
             // 
-            // panel1
+            // SidePanel
             // 
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(21)))), ((int)(((byte)(189)))), ((int)(((byte)(115)))));
-            this.panel1.Controls.Add(this.label0);
-            this.panel1.Controls.Add(this.Separator);
-            this.panel1.Controls.Add(this.label4);
-            this.panel1.Controls.Add(this.label3);
-            this.panel1.Controls.Add(this.label2);
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel1.Location = new System.Drawing.Point(244, 0);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(158, 259);
-            this.panel1.TabIndex = 11;
+            this.SidePanel.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(21)))), ((int)(((byte)(189)))), ((int)(((byte)(115)))));
+            this.SidePanel.Controls.Add(this.label0);
+            this.SidePanel.Controls.Add(this.Separator);
+            this.SidePanel.Controls.Add(this.label4);
+            this.SidePanel.Controls.Add(this.label3);
+            this.SidePanel.Controls.Add(this.label2);
+            this.SidePanel.Controls.Add(this.label1);
+            this.SidePanel.Dock = System.Windows.Forms.DockStyle.Right;
+            this.SidePanel.Location = new System.Drawing.Point(244, 0);
+            this.SidePanel.Name = "SidePanel";
+            this.SidePanel.Size = new System.Drawing.Size(158, 259);
+            this.SidePanel.TabIndex = 11;
             // 
             // label0
             // 
@@ -71,7 +71,7 @@
             this.label0.Name = "label0";
             this.label0.Size = new System.Drawing.Size(148, 38);
             this.label0.TabIndex = 6;
-            this.label0.Text = "Selecciona la opción deseada.";
+            this.label0.Text = "Selecciona la opción deseada";
             this.label0.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Separator
@@ -80,6 +80,7 @@
             this.Separator.LineColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
             this.Separator.LineThickness = 1;
             this.Separator.Location = new System.Drawing.Point(-5, 0);
+            this.Separator.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Separator.Name = "Separator";
             this.Separator.Size = new System.Drawing.Size(10, 259);
             this.Separator.TabIndex = 5;
@@ -142,6 +143,7 @@
             // 
             this.CentralPictureBox.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.CentralPictureBox.ErrorImage = null;
+            this.CentralPictureBox.Image = global::BlockTheSpot.Properties.Resources.WorkingImage;
             this.CentralPictureBox.InitialImage = null;
             this.CentralPictureBox.Location = new System.Drawing.Point(5, 59);
             this.CentralPictureBox.Name = "CentralPictureBox";
@@ -151,30 +153,13 @@
             this.CentralPictureBox.TabStop = false;
             this.CentralPictureBox.Visible = false;
             // 
-            // byButton
-            // 
-            this.byButton.BackColor = System.Drawing.Color.Transparent;
-            this.byButton.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.byButton.ErrorImage = null;
-            this.byButton.Image = global::BlockTheSpot.Properties.Resources.HelpImage;
-            this.byButton.ImageActive = null;
-            this.byButton.InitialImage = null;
-            this.byButton.Location = new System.Drawing.Point(185, 5);
-            this.byButton.Name = "byButton";
-            this.byButton.Size = new System.Drawing.Size(34, 30);
-            this.byButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.byButton.TabIndex = 0;
-            this.byButton.TabStop = false;
-            this.byButton.Zoom = 10;
-            this.byButton.Click += new System.EventHandler(this.byButton_Click);
-            // 
             // WarningButton
             // 
             this.WarningButton.Activecolor = System.Drawing.Color.Transparent;
             this.WarningButton.BackColor = System.Drawing.Color.Transparent;
             this.WarningButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.WarningButton.BorderRadius = 0;
-            this.WarningButton.ButtonText = "Spotify bloqueará cuentas con ad-block.";
+            this.WarningButton.ButtonText = "Advertencia sobre el uso de ad-blocks";
             this.WarningButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.WarningButton.DisabledColor = System.Drawing.Color.Transparent;
             this.WarningButton.Iconcolor = System.Drawing.Color.Transparent;
@@ -190,6 +175,7 @@
             this.WarningButton.IconZoom = 70D;
             this.WarningButton.IsTab = false;
             this.WarningButton.Location = new System.Drawing.Point(23, 205);
+            this.WarningButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.WarningButton.Name = "WarningButton";
             this.WarningButton.Normalcolor = System.Drawing.Color.Transparent;
             this.WarningButton.OnHovercolor = System.Drawing.Color.Transparent;
@@ -197,7 +183,7 @@
             this.WarningButton.selected = false;
             this.WarningButton.Size = new System.Drawing.Size(196, 35);
             this.WarningButton.TabIndex = 10;
-            this.WarningButton.Text = "Spotify bloqueará cuentas con ad-block.";
+            this.WarningButton.Text = "Advertencia sobre el uso de ad-blocks";
             this.WarningButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.WarningButton.Textcolor = System.Drawing.Color.Black;
             this.WarningButton.TextFont = new System.Drawing.Font("Bahnschrift Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -205,11 +191,11 @@
             // 
             // ResetButton
             // 
-            this.ResetButton.Activecolor = System.Drawing.Color.Transparent;
+            this.ResetButton.Activecolor = System.Drawing.Color.White;
             this.ResetButton.BackColor = System.Drawing.Color.White;
             this.ResetButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ResetButton.BorderRadius = 7;
-            this.ResetButton.ButtonText = "Resetear";
+            this.ResetButton.ButtonText = "Restablecer";
             this.ResetButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ResetButton.DisabledColor = System.Drawing.Color.DarkGray;
             this.ResetButton.Iconcolor = System.Drawing.Color.Transparent;
@@ -225,6 +211,7 @@
             this.ResetButton.IconZoom = 100D;
             this.ResetButton.IsTab = false;
             this.ResetButton.Location = new System.Drawing.Point(23, 136);
+            this.ResetButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.ResetButton.Name = "ResetButton";
             this.ResetButton.Normalcolor = System.Drawing.Color.White;
             this.ResetButton.OnHovercolor = System.Drawing.Color.WhiteSmoke;
@@ -232,7 +219,7 @@
             this.ResetButton.selected = false;
             this.ResetButton.Size = new System.Drawing.Size(196, 48);
             this.ResetButton.TabIndex = 9;
-            this.ResetButton.Text = "Resetear";
+            this.ResetButton.Text = "Restablecer";
             this.ResetButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.ResetButton.Textcolor = System.Drawing.Color.Black;
             this.ResetButton.TextFont = new System.Drawing.Font("Bahnschrift Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -240,11 +227,11 @@
             // 
             // PatchButton
             // 
-            this.PatchButton.Activecolor = System.Drawing.Color.Transparent;
+            this.PatchButton.Activecolor = System.Drawing.Color.White;
             this.PatchButton.BackColor = System.Drawing.Color.White;
             this.PatchButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.PatchButton.BorderRadius = 7;
-            this.PatchButton.ButtonText = "Parchear";
+            this.PatchButton.ButtonText = "Bloquear anuncios";
             this.PatchButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.PatchButton.DisabledColor = System.Drawing.Color.DarkGray;
             this.PatchButton.Iconcolor = System.Drawing.Color.Transparent;
@@ -260,6 +247,7 @@
             this.PatchButton.IconZoom = 100D;
             this.PatchButton.IsTab = false;
             this.PatchButton.Location = new System.Drawing.Point(23, 72);
+            this.PatchButton.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.PatchButton.Name = "PatchButton";
             this.PatchButton.Normalcolor = System.Drawing.Color.White;
             this.PatchButton.OnHovercolor = System.Drawing.Color.WhiteSmoke;
@@ -267,7 +255,7 @@
             this.PatchButton.selected = false;
             this.PatchButton.Size = new System.Drawing.Size(196, 48);
             this.PatchButton.TabIndex = 8;
-            this.PatchButton.Text = "Parchear";
+            this.PatchButton.Text = "Bloquear anuncios";
             this.PatchButton.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.PatchButton.Textcolor = System.Drawing.Color.Black;
             this.PatchButton.TextFont = new System.Drawing.Font("Bahnschrift Light", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -287,29 +275,51 @@
             this.SpotifyPictureBox.TabIndex = 7;
             this.SpotifyPictureBox.TabStop = false;
             // 
+            // ByButton
+            // 
+            this.ByButton.AccessibleDescription = "";
+            this.ByButton.BackColor = System.Drawing.Color.Transparent;
+            this.ByButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.ByButton.ErrorImage = null;
+            this.ByButton.Image = global::BlockTheSpot.Properties.Resources.HelpImage;
+            this.ByButton.ImageActive = null;
+            this.ByButton.InitialImage = null;
+            this.ByButton.Location = new System.Drawing.Point(219, 2);
+            this.ByButton.Name = "ByButton";
+            this.ByButton.Size = new System.Drawing.Size(22, 22);
+            this.ByButton.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.ByButton.TabIndex = 0;
+            this.ByButton.TabStop = false;
+            this.ByButton.Tag = "Ayuda";
+            this.ByButton.Zoom = 10;
+            this.ByButton.Click += new System.EventHandler(this.ByButton_Click);
+            // 
             // BlockTheSpot
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(230)))), ((int)(((byte)(140)))));
             this.ClientSize = new System.Drawing.Size(402, 259);
-            this.Controls.Add(this.byButton);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.CentralPictureBox);
+            this.Controls.Add(this.SidePanel);
             this.Controls.Add(this.WarningButton);
             this.Controls.Add(this.ResetButton);
             this.Controls.Add(this.PatchButton);
             this.Controls.Add(this.SpotifyPictureBox);
-            this.Controls.Add(this.CentralPictureBox);
+            this.Controls.Add(this.ByButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "BlockTheSpot";
             this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "BlockTheSpot";
-            this.panel1.ResumeLayout(false);
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BlockTheSpot_FormClosing);
+            this.Load += new System.EventHandler(this.BlockTheSpot_Load);
+            this.SidePanel.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.CentralPictureBox)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.byButton)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.SpotifyPictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ByButton)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -319,7 +329,7 @@
         private Bunifu.Framework.UI.BunifuFlatButton PatchButton;
         private Bunifu.Framework.UI.BunifuFlatButton ResetButton;
         private Bunifu.Framework.UI.BunifuFlatButton WarningButton;
-        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Panel SidePanel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
@@ -327,7 +337,7 @@
         private System.Windows.Forms.PictureBox CentralPictureBox;
         private Bunifu.Framework.UI.BunifuSeparator Separator;
         private System.Windows.Forms.Label label0;
-        private Bunifu.Framework.UI.BunifuImageButton byButton;
+        private Bunifu.Framework.UI.BunifuImageButton ByButton;
     }
 }
 
