@@ -11,7 +11,7 @@ using System.Management.Automation;
 using System.Threading;
 using Microsoft.Win32;
 
-namespace BlockTheSpot // Admin Privs ¿?  // Test Microsoft Store Spotify detection
+namespace BlockTheSpot
 {
     public partial class BlockTheSpot : Form
     {
@@ -36,7 +36,6 @@ namespace BlockTheSpot // Admin Privs ¿?  // Test Microsoft Store Spotify detec
                 Application.Exit();
             }
             else if (Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\PackageRepository\Extensions\windows.protocol\spotify") != null)
-            // Alternative: SOFTWARE\Classes\Local Settings\Software\Microsoft\Windows\CurrentVersion\AppModel\PackageRepository\Packages\
             {
                 MessageBox.Show(this, "La versión Microsoft Store de Spotify no es compatible con esta aplicación." + Environment.NewLine + "Desinstala Spotify y reinicia BlockTheSpot.", "BlockTheSpot", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 Application.Exit();
@@ -72,6 +71,7 @@ namespace BlockTheSpot // Admin Privs ¿?  // Test Microsoft Store Spotify detec
 
         private void PatchButtonMethod()
         {
+            this.Cursor = Cursors.Default;
             WorkingPictureBox.BringToFront();
             WorkingPictureBox.Visible = true;
 
@@ -95,6 +95,7 @@ namespace BlockTheSpot // Admin Privs ¿?  // Test Microsoft Store Spotify detec
 
         private void ResetButtonMethod()
         {
+            this.Cursor = Cursors.Default;
             WorkingPictureBox.BringToFront();
             WorkingPictureBox.Visible = true;
 
@@ -139,16 +140,15 @@ namespace BlockTheSpot // Admin Privs ¿?  // Test Microsoft Store Spotify detec
                 {
                     PowerShell.Create().AddScript($"cmd /C \"`\"{Path.GetTempPath()}spotify_installer-1.1.4.197.g92d52c4f-13.exe`\" /extract \"\"{SpotifyDir}\"").Invoke();
                 }
-                
+
                 if (DowngradeRequired())
                 {
-                    Process.Start($"{Path.GetTempPath()}spotify_installer-1.1.4.197.g92d52c4f-13.exe");
+                    Process.Start($"{Path.GetTempPath()}spotify_installer-1.1.4.197.g92d52c4f-13.exe").WaitForExit();
+                    //while (Process.GetProcessesByName("spotify_installer-1.1.4.197.g92d52c4f-13.exe").Length > 0) Thread.Sleep(100);
 
-                    while (DowngradeRequired()) Thread.Sleep(100);
+                    try { File.Delete($"{Path.GetTempPath()}spotify_installer-1.1.4.197.g92d52c4f-13.exe"); } catch (Exception) { }  // Conflict?
 
-                    //File.Delete($"{Path.GetTempPath()}spotify_installer-1.1.4.197.g92d52c4f-13.exe");  // Conflict
-
-                    TerminateSpotify();
+                    TerminateSpotify(); // Conflict, cannot open spotify warning message?
                 }
             }
         }
@@ -218,11 +218,10 @@ namespace BlockTheSpot // Admin Privs ¿?  // Test Microsoft Store Spotify detec
             {
                 using (WebClient client = new WebClient()) { client.DownloadFile("https://download.scdn.co/SpotifySetup.exe", $"{Path.GetTempPath()}spotify_installer-update.exe"); }
 
-                Process.Start($"{Path.GetTempPath()}spotify_installer-update.exe");
+                Process.Start($"{Path.GetTempPath()}spotify_installer-update.exe").WaitForExit();
+                //while (Process.GetProcessesByName("spotify_installer-update.exe").Length > 0) Thread.Sleep(100);
 
-                while (!File.Exists($@"{SpotifyDir}\Spotify.exe") || !DowngradeRequired()) Thread.Sleep(100);
-
-                //File.Delete($"{Path.GetTempPath()}spotify_installer-update.exe");  // Conflict
+                try { File.Delete($"{Path.GetTempPath()}spotify_installer-update.exe"); } catch (Exception) { }  // Conflict?
             }
             catch (WebException)
             {
@@ -248,16 +247,6 @@ namespace BlockTheSpot // Admin Privs ¿?  // Test Microsoft Store Spotify detec
             Application.Exit();
         }
 
-        //public async Task HiddenProcess(string processFile, string processArguments)
-        //{
-        //    ProcessStartInfo hiddenProcess = new ProcessStartInfo();
-        //    hiddenProcess.FileName = processFile;
-        //    hiddenProcess.Arguments = processArguments;
-        //    hiddenProcess.WindowStyle = ProcessWindowStyle.Hidden;
-        //    hiddenProcess.CreateNoWindow = true;
-        //    await Task.Run(() => Process.Start(hiddenProcess).WaitForExit());
-        //}
-
         private void FileSecurity(string dirPath, FileSystemRights rights, AccessControlType controlType, bool addRule)
         {
             if (Directory.Exists(dirPath))
@@ -267,8 +256,10 @@ namespace BlockTheSpot // Admin Privs ¿?  // Test Microsoft Store Spotify detec
                 AuthorizationRuleCollection rules = fSecurity.GetAccessRules(true, true, typeof(NTAccount));
                 foreach (FileSystemAccessRule rule in rules) fSecurity.RemoveAccessRule(rule);
 
-                if (addRule) fSecurity.AddAccessRule(new FileSystemAccessRule(WindowsIdentity.GetCurrent().Name, rights, controlType));
-                /*else, no if*/ if (!addRule) fSecurity.RemoveAccessRule(new FileSystemAccessRule(WindowsIdentity.GetCurrent().Name, rights, controlType));
+                if (addRule)
+                    fSecurity.AddAccessRule(new FileSystemAccessRule(WindowsIdentity.GetCurrent().Name, rights, controlType));
+                else
+                    fSecurity.RemoveAccessRule(new FileSystemAccessRule(WindowsIdentity.GetCurrent().Name, rights, controlType));
 
                 Directory.SetAccessControl(dirPath, fSecurity);
             }
@@ -281,6 +272,7 @@ namespace BlockTheSpot // Admin Privs ¿?  // Test Microsoft Store Spotify detec
                 DialogResult exitMessage = MessageBox.Show(this, "BlockTheSpot no ha terminado su trabajo, ¿deseas cerrar la aplicación de todas formas?", "BlockTheSpot", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
                 if (exitMessage == DialogResult.No)
                     close.Cancel = true;
+                // Pause threads?
             }
         }
     }
