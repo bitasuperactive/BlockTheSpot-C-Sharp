@@ -11,7 +11,7 @@ using System.Management.Automation;
 using System.Threading;
 using Microsoft.Win32;
 
-namespace BlockTheSpot // Admin Privs ¿?  // Test Microsoft Store Spotify detection  // async useless
+namespace BlockTheSpot // Admin Privs ¿?  // Test Microsoft Store Spotify detection
 {
     public partial class BlockTheSpot : Form
     {
@@ -47,7 +47,10 @@ namespace BlockTheSpot // Admin Privs ¿?  // Test Microsoft Store Spotify detec
                 Application.Exit();
             }
             else if (!DowngradeRequired() && File.Exists($@"{SpotifyDir}\netutils.dll"))
+            {
                 SpotifyPictureBox.Image = Properties.Resources.AddsOffImage;
+                PatchButton.Enabled = false;
+            }
             else
                 ResetButton.Enabled = false;
         }
@@ -67,7 +70,7 @@ namespace BlockTheSpot // Admin Privs ¿?  // Test Microsoft Store Spotify detec
         private void ResetButton_Click(object sender, EventArgs e) => ResetButtonMethod();
         private void BlockTheSpot_HelpButtonClicked(object sender, System.ComponentModel.CancelEventArgs e) => Process.Start("https://github.com/bitasuperactive/BlockTheSpot-OneClick");
 
-        private async void PatchButtonMethod()
+        private void PatchButtonMethod()
         {
             WorkingPictureBox.BringToFront();
             WorkingPictureBox.Visible = true;
@@ -76,7 +79,7 @@ namespace BlockTheSpot // Admin Privs ¿?  // Test Microsoft Store Spotify detec
 
             try
             {
-                await SpotifyDowngrade();
+                SpotifyDowngrade();
                 InjectNatutils();
                 DisableAutoUpdate();
                 PowerShell.Create().AddScript(@"$ws = New-Object -ComObject WScript.Shell; $s = $ws.CreateShortcut($env:USERPROFILE + '\Desktop\Spotify.lnk'); $S.TargetPath = $env:APPDATA + '\Spotify\Spotify.exe'; $S.Save()").Invoke();
@@ -90,7 +93,7 @@ namespace BlockTheSpot // Admin Privs ¿?  // Test Microsoft Store Spotify detec
             }
         }
 
-        private async void ResetButtonMethod()
+        private void ResetButtonMethod()
         {
             WorkingPictureBox.BringToFront();
             WorkingPictureBox.Visible = true;
@@ -100,7 +103,7 @@ namespace BlockTheSpot // Admin Privs ¿?  // Test Microsoft Store Spotify detec
             try
             {
                 ClearSpotify();
-                await UpdateSpotify();
+                UpdateSpotify();
                 Finish(false, "¡Spotify ha sido restablecido con éxito!" + Environment.NewLine + "Gracias por utilizar BlockTheSpot.");
             }
             catch (Exception exception)
@@ -119,7 +122,7 @@ namespace BlockTheSpot // Admin Privs ¿?  // Test Microsoft Store Spotify detec
         }
 
         #region Patch Methods
-        private async Task SpotifyDowngrade()
+        private void SpotifyDowngrade()
         {
             if (DowngradeRequired())
             {
@@ -141,7 +144,7 @@ namespace BlockTheSpot // Admin Privs ¿?  // Test Microsoft Store Spotify detec
                 {
                     Process.Start($"{Path.GetTempPath()}spotify_installer-1.1.4.197.g92d52c4f-13.exe");
 
-                    while (DowngradeRequired()) await Task.Delay(1000);
+                    while (DowngradeRequired()) Thread.Sleep(100);
 
                     //File.Delete($"{Path.GetTempPath()}spotify_installer-1.1.4.197.g92d52c4f-13.exe");  // Conflict
 
@@ -178,7 +181,7 @@ namespace BlockTheSpot // Admin Privs ¿?  // Test Microsoft Store Spotify detec
             }
         }
 
-        private void DisableAutoUpdate() // async?
+        private void DisableAutoUpdate()
         {
             if (Directory.Exists(UpdateFolderDir))
             {
@@ -209,7 +212,7 @@ namespace BlockTheSpot // Admin Privs ¿?  // Test Microsoft Store Spotify detec
             }
         }
 
-        private async Task UpdateSpotify()
+        private void UpdateSpotify()
         {
             try
             {
@@ -217,7 +220,7 @@ namespace BlockTheSpot // Admin Privs ¿?  // Test Microsoft Store Spotify detec
 
                 Process.Start($"{Path.GetTempPath()}spotify_installer-update.exe");
 
-                while (!File.Exists($@"{SpotifyDir}\Spotify.exe") || !DowngradeRequired()) await Task.Delay(1000);
+                while (!File.Exists($@"{SpotifyDir}\Spotify.exe") || !DowngradeRequired()) Thread.Sleep(100);
 
                 //File.Delete($"{Path.GetTempPath()}spotify_installer-update.exe");  // Conflict
             }

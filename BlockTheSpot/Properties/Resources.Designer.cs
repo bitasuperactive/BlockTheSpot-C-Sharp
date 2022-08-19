@@ -103,16 +103,6 @@ namespace BlockTheSpot.Properties {
         /// <summary>
         ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap WarningImage {
-            get {
-                object obj = ResourceManager.GetObject("WarningImage", resourceCulture);
-                return ((System.Drawing.Bitmap)(obj));
-            }
-        }
-        
-        /// <summary>
-        ///   Busca un recurso adaptado de tipo System.Drawing.Bitmap.
-        /// </summary>
         internal static System.Drawing.Bitmap WorkingImage {
             get {
                 object obj = ResourceManager.GetObject("WorkingImage", resourceCulture);

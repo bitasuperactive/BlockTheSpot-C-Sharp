@@ -145,7 +145,6 @@
   <ItemGroup>
     <None Include="Resources\icon.ico" />
     <None Include="Resources\WorkingImage.png" />
-    <None Include="Resources\WarningImage.png" />
     <None Include="Resources\DoneImage.png" />
     <None Include="Resources\AddsOnImage.png" />
     <None Include="Resources\AddsOffImage.png" />
