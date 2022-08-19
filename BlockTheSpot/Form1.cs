@@ -11,6 +11,7 @@ using System.Management.Automation;
 using System.Threading;
 using System.ComponentModel;
 using ThreadState = System.Threading.ThreadState;
+using System.Configuration;
 
 namespace BlockTheSpot
 {
@@ -26,7 +27,17 @@ namespace BlockTheSpot
 
         private async void BlockTheSpot_Load(object sender, EventArgs e)
         {
-            await CheckRequirements();
+            if (Properties.Settings.Default.AdminRightsNeeded.Equals(false))
+                await CheckRequirements();
+            else
+            {
+                if (!new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator))
+                {
+                    MessageBox.Show(this, "Permisos de Administrador requeridos. BlockTheSpot se cerrará.", "BlockTheSpot", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Application.Exit();
+                }
+                PatchButtonMethod();
+            }
         }
 
         private Task CheckRequirements()
@@ -37,9 +48,9 @@ namespace BlockTheSpot
                 Application.Exit();
             }
 
-            else if (!new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator))
+            else if (new WindowsPrincipal(WindowsIdentity.GetCurrent()).IsInRole(WindowsBuiltInRole.Administrator))
             {
-                MessageBox.Show("Permisos de Administrador requeridos.", "KCI", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Reinicia la aplicación sin permisos de administrador.", "KCI", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 Application.Exit();
             }
 
@@ -79,13 +90,14 @@ namespace BlockTheSpot
         private void WarningButton_Click(object sender, EventArgs e) => MessageBox.Show(this, "Spotify suspenderá indefinidamente las cuentas de usuario que utilicen cualquier forma de ad-block (como BlockTheSpot) al violar los términos y condiciones de uso." + Environment.NewLine + "Medida implementada el 01/03/2019." + Environment.NewLine + Environment.NewLine + "Al utilizar BlockTheSpot asumes toda responsabilidad subyacente.", "BlockTheSpot", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         private void ByButton_Click(object sender, EventArgs e) => Process.Start("https://www.youtube.com/channel/UCc-AA6VaZh81DYYCrSAMS5w?");
 
-        private async void PatchButtonMethod()
+        private async void PatchButtonMethod() //Make Update portable (change permissions)
         {
-            if (!File.Exists($@"{SpotifyDir}\Spotify.exe"))
+            if (!File.Exists($@"{SpotifyDir}\Spotify.exe")) //If not installed, user has to install it manually if does not want a portable installation
             {
                 DialogResult warningMessage = MessageBox.Show(this, "Spotify no instalado. Es recomendable pre-instalar Spotify manualmente, de lo contrario se instalará de forma portable en los directorios AppData y LocalAppData." + Environment.NewLine +"¿Deseas continuar de todas formas?", "BlockTheSpot", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                 if (warningMessage == DialogResult.No)
                 {
+                    Process.Start("https://www.spotify.com/es/download/"); //Maybe download version 1.1.4.197
                     return;
                 }
             }
@@ -96,8 +108,10 @@ namespace BlockTheSpot
 
             try
             {
+                if (Properties.Settings.Default.AdminRightsNeeded) goto CONTINUE;
                 await DownloadRequirements();
                 await SpotifyDowngrade();
+                CONTINUE:
                 await DisableAutoUpdate();
             }
             catch (Exception exception)
@@ -194,8 +208,35 @@ namespace BlockTheSpot
 
         private async Task DisableAutoUpdate()
         {
+            //Restart app with admin rights
+
+            if (Properties.Settings.Default.AdminRightsNeeded.Equals(false))
+            {
+                ProcessStartInfo restartApp = new ProcessStartInfo(AppDomain.CurrentDomain.BaseDirectory); //Check
+                restartApp.UseShellExecute = true;
+                restartApp.Verb = "runas";
+
+                try
+                {
+                    Process.Start(restartApp);
+                }
+                catch (Win32Exception exception)
+                {
+                    if (exception.NativeErrorCode == 1223) //The operation was canceled by the user.
+                    {
+                        MessageBox.Show(this, "Permisos de administrador no otorgados. BlockTheSpot se cerrará.", "BlockTheSpot", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        Environment.Exit(0); //?
+                    }
+                }
+                finally
+                {
+                    Properties.Settings.Default.AdminRightsNeeded = true;
+                }
+            }
+
             label4.Visible = true;
             await Task.Delay(1000);
+
             if (Directory.Exists(UpdateFolderDir))
             {
                 FileSecurity(UpdateFolderDir, FileSystemRights.FullControl, AccessControlType.Allow, true);
@@ -234,13 +275,24 @@ namespace BlockTheSpot
             Directory.SetAccessControl(dirPath, fSecurity);
         }
 
-        private void BlockTheSpot_FormClosing(object sender, FormClosingEventArgs close)
+        //private bool TheadIsAlive()
+        //{
+        //    try
+        //    {
+        //        if (thread.ThreadState.Equals(ThreadState.Running) || thread.ThreadState.Equals(ThreadState.Stopped)) return true;
+        //    }
+        //    catch (NullReferenceException) { }
+        //    return false;
+        //}
+
+        private void BlockTheSpot_FormClosing(object sender, FormClosingEventArgs close) //Check if thread is running without a variable and pause running thread
         {
             if (close.CloseReason == CloseReason.UserClosing)
             {
                 DialogResult exitMessage = MessageBox.Show(this, "¿Deseas cerrar la aplicación?", "BlockTheSpot", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
                 if (exitMessage == DialogResult.No) close.Cancel = true;
             }
+            //Properties.Settings.Default.Reset();
         }
     }
 }
