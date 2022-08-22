@@ -41,9 +41,10 @@
             // 
             this.PatchButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.PatchButton.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.PatchButton.Location = new System.Drawing.Point(12, 59);
+            this.PatchButton.Location = new System.Drawing.Point(16, 73);
+            this.PatchButton.Margin = new System.Windows.Forms.Padding(4);
             this.PatchButton.Name = "PatchButton";
-            this.PatchButton.Size = new System.Drawing.Size(192, 54);
+            this.PatchButton.Size = new System.Drawing.Size(256, 66);
             this.PatchButton.TabIndex = 12;
             this.PatchButton.Text = "Bloquear anuncios";
             this.PatchButton.UseVisualStyleBackColor = true;
@@ -53,9 +54,10 @@
             // 
             this.ResetButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.ResetButton.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.ResetButton.Location = new System.Drawing.Point(12, 119);
+            this.ResetButton.Location = new System.Drawing.Point(16, 146);
+            this.ResetButton.Margin = new System.Windows.Forms.Padding(4);
             this.ResetButton.Name = "ResetButton";
-            this.ResetButton.Size = new System.Drawing.Size(192, 54);
+            this.ResetButton.Size = new System.Drawing.Size(256, 66);
             this.ResetButton.TabIndex = 13;
             this.ResetButton.Text = "Restablecer Spotify";
             this.ResetButton.UseVisualStyleBackColor = true;
@@ -68,9 +70,10 @@
             this.SpotifyPictureBox.ErrorImage = null;
             this.SpotifyPictureBox.Image = global::BlockTheSpot.Properties.Resources.AddsOnImage;
             this.SpotifyPictureBox.InitialImage = null;
-            this.SpotifyPictureBox.Location = new System.Drawing.Point(5, 5);
+            this.SpotifyPictureBox.Location = new System.Drawing.Point(7, 6);
+            this.SpotifyPictureBox.Margin = new System.Windows.Forms.Padding(4);
             this.SpotifyPictureBox.Name = "SpotifyPictureBox";
-            this.SpotifyPictureBox.Size = new System.Drawing.Size(199, 48);
+            this.SpotifyPictureBox.Size = new System.Drawing.Size(265, 59);
             this.SpotifyPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.SpotifyPictureBox.TabIndex = 7;
             this.SpotifyPictureBox.TabStop = false;
@@ -81,9 +84,10 @@
             this.WorkingPictureBox.ErrorImage = null;
             this.WorkingPictureBox.Image = global::BlockTheSpot.Properties.Resources.WorkingImage;
             this.WorkingPictureBox.InitialImage = null;
-            this.WorkingPictureBox.Location = new System.Drawing.Point(12, 59);
+            this.WorkingPictureBox.Location = new System.Drawing.Point(16, 73);
+            this.WorkingPictureBox.Margin = new System.Windows.Forms.Padding(4);
             this.WorkingPictureBox.Name = "WorkingPictureBox";
-            this.WorkingPictureBox.Size = new System.Drawing.Size(192, 116);
+            this.WorkingPictureBox.Size = new System.Drawing.Size(256, 143);
             this.WorkingPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.WorkingPictureBox.TabIndex = 12;
             this.WorkingPictureBox.TabStop = false;
@@ -91,10 +95,10 @@
             // 
             // BlockTheSpot
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(230)))), ((int)(((byte)(140)))));
-            this.ClientSize = new System.Drawing.Size(218, 187);
+            this.ClientSize = new System.Drawing.Size(291, 230);
             this.Controls.Add(this.ResetButton);
             this.Controls.Add(this.PatchButton);
             this.Controls.Add(this.SpotifyPictureBox);
@@ -102,12 +106,14 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.HelpButton = true;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "BlockTheSpot";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "BlockTheSpot";
+            this.TopMost = true;
             this.HelpButtonClicked += new System.ComponentModel.CancelEventHandler(this.BlockTheSpot_HelpButtonClicked);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.BlockTheSpot_FormClosing);
             this.Load += new System.EventHandler(this.BlockTheSpot_Load);
