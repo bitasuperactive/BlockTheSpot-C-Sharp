@@ -16,7 +16,8 @@
 - Mantiene las funcionalidades de lista de amigos, vídeo vertical y rádio.
 
 :no_entry: BTS no es compatible con la **versión Microsoft Store de Spotify**. Pero no te preocupes, BTS se encarga de ello.
-:exlamation: Pueden aparecer pop-ups publicitarios que no interrumpen la reproducción.
+
+:information_source: Pueden aparecer pop-ups publicitarios que no interrumpen la reproducción.
 
 
 ## :heavy_check_mark: Bloquear anuncios (e instalar Spotify)
