@@ -29,7 +29,7 @@
     <SupportUrl>https://github.com/bitasuperactive/BlockTheSpot-C-Sharp/</SupportUrl>
     <ProductName>BlockTheSpot-C-Sharp</ProductName>
     <PublisherName>bitasuperactive</PublisherName>
-    <ApplicationRevision>29</ApplicationRevision>
+    <ApplicationRevision>32</ApplicationRevision>
     <ApplicationVersion>2.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
@@ -152,7 +152,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\icon.ico" />
     <None Include="Resources\WorkingImage.png" />
     <None Include="Resources\DoneImage.png" />
     <None Include="Resources\AddsOnImage.png" />
@@ -160,6 +159,9 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

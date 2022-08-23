@@ -110,7 +110,6 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "BlockTheSpot";
-            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "BlockTheSpot";
             this.TopMost = true;
