@@ -11,11 +11,12 @@
 
 ## Características
 - Solo Windows (**requerido [.NET Framework 4.7.2](https://dotnet.microsoft.com/en-us/download/dotnet-framework/thank-you/net472-web-installer) o superior**).
-- Bloquea todos los anuncios (banners, vídeos y audios).
+- Bloquea los anuncios en banners, vídeos y audios.
 - Desbloquea la función "saltar" para cualquier canción.
 - Mantiene las funcionalidades de lista de amigos, vídeo vertical y rádio.
 
 :no_entry: BTS no es compatible con la **versión Microsoft Store de Spotify**. Pero no te preocupes, BTS se encarga de ello.
+:exlamation: Pueden aparecer pop-ups publicitarios que no interrumpen la reproducción.
 
 
 ## :heavy_check_mark: Bloquear anuncios (e instalar Spotify)
