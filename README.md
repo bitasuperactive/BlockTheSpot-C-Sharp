@@ -4,18 +4,18 @@
 
 
 ## Descripción
-Con un solo clic, BlockTheSpot (**BTS** en adelante) te permite disfrutar de Spotify sin restricciones ni anuncios.
+:free: Con un solo clic, BlockTheSpot (**BTS** en adelante) te permite disfrutar de Spotify sin restricciones ni anuncios.
 
 :white_check_mark: Funcional (23/08/2022)
 
 
 ## Características
-- Solo Windows (requerido [.NET Framework 4.7.2](https://dotnet.microsoft.com/en-us/download/dotnet-framework/thank-you/net472-web-installer) o superior).
+- Solo Windows (**requerido [.NET Framework 4.7.2](https://dotnet.microsoft.com/en-us/download/dotnet-framework/thank-you/net472-web-installer) o superior**).
 - Bloquea todos los anuncios (banners, vídeos y audios).
 - Desbloquea la función "saltar" para cualquier canción.
 - Mantiene las funcionalidades de lista de amigos, vídeo vertical y rádio.
 
-:no_entry: BTS no es compatible con la versión Microsoft Store de Spotify. Pero no te preocupes, BTS se encarga de ello.
+:no_entry: BTS no es compatible con la **versión Microsoft Store de Spotify**. Pero no te preocupes, BTS se encarga de ello.
 
 
 ## :heavy_check_mark: Bloquear anuncios (e instalar Spotify)
