@@ -27,7 +27,7 @@
 
 ## :heavy_check_mark: Restaurar Spotify
 - `Restablece` las actualizaciones automáticas.
-- `Deshace` la inyección eliminándo los archivos `chrome_elf.dll` y `config.ini`, si los hubiera.
+- `Deshace` la inyección eliminándo los archivos _chrome_elf.dll_ y _config.ini_, si los hubiera.
 - `Instala` automáticamente la última versión de Spotify.
 
 
