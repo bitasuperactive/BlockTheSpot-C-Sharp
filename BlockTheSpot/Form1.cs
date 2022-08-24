@@ -226,14 +226,10 @@ namespace BlockTheSpot
                 throw new WebException($"No ha sido posible realizar una instalación limpia de <{spotifyInstallerName}>.\n" +
                     "Comprueba tu conexión a internet e inténtalo de nuevo.", ex);
             }
-            catch (Exception)
-            {
-                // El programa puede continuar con el resto de excepciones.
-            }
 
             // Comprueba si la instalación ha sido completada con éxito.
             if (DowngradeRequired())
-                throw new Exception($"El downgrade de Spotify ha fallado.");
+                throw new FileNotFoundException($"El downgrade de Spotify ha fallado, intentalo de nuevo.");
         }
         //
         // Inyecta los archivos chrome_elf.dll y config.ini, encargados de llevar a cabo el bloqueo de anuncios, en el directorio principal de Spotify.
@@ -284,7 +280,6 @@ namespace BlockTheSpot
                 }
 
                 // Bloquea el control total de la carpeta de actualizaciones para el grupo de usuarios actual.
-                Directory.CreateDirectory(dir);
                 FileSecurity(AccessControlType.Deny);
             }
             catch (UnauthorizedAccessException)
@@ -323,11 +318,6 @@ namespace BlockTheSpot
         {
             try
             {
-                string dir = $@"{SpotifyLocalDir}\Update";
-
-                if (!Directory.Exists(dir))
-                    Directory.CreateDirectory(dir);
-
                 // Desbloquea el control total de la carpeta de actualizaciones para el grupo de usuarios actual.
                 FileSecurity(AccessControlType.Allow);
             }
@@ -358,11 +348,13 @@ namespace BlockTheSpot
             }
             catch (WebException)
             {
-                MessageBox.Show(this, "No ha sido posible descargar la última versión de Spotify.", "BlockTheSpot", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(this, "No ha sido posible descargar la última versión de Spotify.\n" +
+                    "Realiza la instalación manualmente", "BlockTheSpot", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
             catch (FileNotFoundException)
             {
-                MessageBox.Show(this, "No ha sido posible finalizar la instalación la última versión de Spotify.", "BlockTheSpot",
+                MessageBox.Show(this, "No ha sido posible finalizar la instalación la última versión de Spotify.\n" +
+                    "Realiza la instalación manualmente.", "BlockTheSpot",
                     MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
@@ -372,6 +364,9 @@ namespace BlockTheSpot
         private void FileSecurity(AccessControlType controlType)
         {
             string dir = $@"{SpotifyLocalDir}\Update";
+
+            if (!Directory.Exists(dir))
+                Directory.CreateDirectory(dir);
 
             DirectorySecurity dirSecurity = Directory.GetAccessControl(dir);
 
@@ -410,9 +405,9 @@ namespace BlockTheSpot
         {
             // Consulta al usuario si desea subir estos logs al repositorio de GitHub para investigar el error.
             DialogResult dialogResult = MessageBox.Show(this, ex.Message + "\n\n" +
-                "Si el problema persiste por favor, crea un [Issue] en el respositorio de BlockTheSpot en GitHub, " +
-                "subiendo los logs <bts_log.txt> que se generarán en la carpeta %Temp% de tu equipo, así podré investigarlo.\n\n" +
-                "Pulsa en [Sí] para abrir el repositorio y carpeta indicados.", "BlockTheSpot",
+                "Si el problema persiste por favor, crea un [ Issue ] en el respositorio de BlockTheSpot en GitHub, " +
+                "subiendo los logs <blockthespot_log.txt> que se generarán en la carpeta %Temp% de tu equipo, así podré investigarlo.\n\n" +
+                "Pulsa en [ Sí ] para abrir el repositorio y carpeta indicados.", "BlockTheSpot",
                 MessageBoxButtons.YesNo, MessageBoxIcon.Error);
 
             if (dialogResult == DialogResult.No)
@@ -425,7 +420,7 @@ namespace BlockTheSpot
                 stackTraces += $"\n{ex.InnerException.Message}\n{ex.InnerException.StackTrace}";
                 ex = ex.InnerException;
             }
-            File.WriteAllText(Path.GetTempPath() + "bts_log.txt", stackTraces);
+            File.WriteAllText(Path.GetTempPath() + "blockthespot_log.txt", stackTraces);
 
             // Abre el repositorio en GitHub y la carpeta de archivos temporales.
             Process.Start(RepositoryUrl + @"/issues/new");
