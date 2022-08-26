@@ -84,7 +84,6 @@
             this.progressBar.Name = "progressBar";
             this.progressBar.Size = new System.Drawing.Size(170, 14);
             this.progressBar.TabIndex = 14;
-            this.progressBar.Value = 100;
             this.progressBar.Visible = false;
             // 
             // progressLabel
@@ -93,7 +92,7 @@
             this.progressLabel.Name = "progressLabel";
             this.progressLabel.Size = new System.Drawing.Size(37, 14);
             this.progressLabel.TabIndex = 15;
-            this.progressLabel.Text = "100%";
+            this.progressLabel.Text = "0%";
             this.progressLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.progressLabel.Visible = false;
             // 
@@ -109,7 +108,6 @@
             this.outputLabel.TabIndex = 16;
             this.outputLabel.Tag = "";
             this.outputLabel.Text = "<outputLabel>";
-            this.toolTip.SetToolTip(this.outputLabel, "");
             this.outputLabel.Visible = false;
             // 
             // BlockTheSpot
