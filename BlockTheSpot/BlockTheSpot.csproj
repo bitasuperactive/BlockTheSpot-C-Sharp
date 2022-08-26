@@ -29,8 +29,8 @@
     <SupportUrl>https://github.com/bitasuperactive/BlockTheSpot-C-Sharp/</SupportUrl>
     <ProductName>BlockTheSpot-C-Sharp</ProductName>
     <PublisherName>bitasuperactive</PublisherName>
-    <ApplicationRevision>34</ApplicationRevision>
-    <ApplicationVersion>2.1.0.%2a</ApplicationVersion>
+    <ApplicationRevision>35</ApplicationRevision>
+    <ApplicationVersion>2.2.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>false</BootstrapperEnabled>
@@ -152,8 +152,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\WorkingImage.png" />
-    <None Include="Resources\DoneImage.png" />
     <None Include="Resources\AddsOnImage.png" />
     <None Include="Resources\AddsOffImage.png" />
   </ItemGroup>
