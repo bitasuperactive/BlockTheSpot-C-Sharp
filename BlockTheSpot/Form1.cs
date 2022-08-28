@@ -14,34 +14,65 @@ namespace BlockTheSpot
 {
     public partial class BlockTheSpot : Form
     {
-        private static string RepositoryUrl = "https://github.com/bitasuperactive/BlockTheSpot-C-Sharp";
-        private static Uri SpotifyUri { get; } = new Uri("https://download.scdn.co/SpotifySetup.exe");
-        private static Uri SpotifyDowngradedUri { get; } = new Uri("https://upgrade.scdn.co/upgrade/client/win32-x86/spotify_installer-1.1.89.862.g94554d24-13.exe");
-        private static Uri ChromeElfUri { get; } = new Uri("https://github.com/mrpond/BlockTheSpot/releases/latest/download/chrome_elf.zip");
-        private static string SpotifyDir { get; } = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Spotify";
-        private static string SpotifyLocalDir { get; } = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Spotify";
+        /// <summary>
+        /// Dirección Uri de este repositorio en GitHub.
+        /// </summary>
+        private static Uri RepositoryUri { get; } =
+            new Uri("https://github.com/bitasuperactive/BlockTheSpot-C-Sharp");
+        /// <summary>
+        /// Dirección Uri de la última versión de Spotify.
+        /// </summary>
+        private static Uri SpotifyUri { get; } = 
+            new Uri("https://download.scdn.co/SpotifySetup.exe");
+        /// <summary>
+        /// Dirección Uri de la última versión de Spotify, compatible con BTS (<b>1.1.89.862.g94554d24-13</b>).
+        /// </summary>
+        private static Uri SpotifyDowngradedUri { get; } =
+            new Uri("https://upgrade.scdn.co/upgrade/client/win32-x86/spotify_installer-1.1.89.862.g94554d24-13.exe");
+        /// <summary>
+        /// Dirección Uri de la última versión de <b>chrome_elf.zip</b>.
+        /// </summary>
+        private static Uri ChromeElfUri { get; } =
+            new Uri("https://github.com/mrpond/BlockTheSpot/releases/latest/download/chrome_elf.zip");
+        /// <summary>
+        /// Ruta principal de Spotify.
+        /// </summary>
+        private static string SpotifyDir { get; } =
+            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\Spotify";
+        /// <summary>
+        /// Ruta local de Spotify.
+        /// </summary>
+        private static string SpotifyLocalDir { get; } =
+            Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + "\\Spotify";
 
-
+        /// <summary>
+        /// Inicio de la aplicación.
+        /// </summary>
         public BlockTheSpot()
         {
-            CheckIfAlreadyLaunched();
+            CheckIfAlreadyRunning();
             InitializeComponent();
         }
 
 
-        //
-        // Comprueba si BlockTheSpot se encuentra ya en ejecución.
-        private void CheckIfAlreadyLaunched()
+        /// <summary>
+        /// Comprueba si el programa ya se encuentra en ejecución,
+        /// en cuyo caso finaliza la instancia actual.
+        /// </summary>
+        private void CheckIfAlreadyRunning()
         {
             if (Process.GetProcesses().Count(p => p.ProcessName.Equals(Process.GetCurrentProcess().ProcessName)) > 1)
             {
-                MessageBox.Show("Ya existe una instancia activa de BlockTheSpot.", "BlockTheSpot", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("BlockTheSpot ya se encuentra en ejecución.", "BlockTheSpot", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 Application.Exit();
             }
         }
-        //
-        // Comprueba si el parcheado ya ha sido realizado y, si Spotify versión de escritorio esta instalado.
-        private void BlockTheSpot_Load(object sender, EventArgs e)
+        /// <summary>
+        /// Comprueba si el parche ya ha sido aplicado o,
+        /// si la versión de escritorio de Spotify esta instalada en el equipo,
+        /// modificando la IGU en consecuencia.
+        /// </summary>
+        private void SetGuiValues()
         {
             if (!DowngradeRequired() &&
                 File.Exists($@"{SpotifyDir}\chrome_elf_bak.dll") &&
@@ -65,8 +96,12 @@ namespace BlockTheSpot
             progressLabel.Visible = false;
         }
 
-        //
-        // Método accionado por el evento <PatchButton_Click>.
+        /// <summary>
+        /// Método asincrónico accionado por el evento "PatchButton_Click".
+        /// <br/>
+        /// Ejecuta todos los métodos correspondientes al evento desencadenado.
+        /// </summary>
+        /// <returns></returns>
         private async Task PatchButtonMethod()
         {
             Cursor = Cursors.Default;
@@ -82,16 +117,14 @@ namespace BlockTheSpot
                 await Patch();
                 DisableAutoUpdate();
 
-                // Si existe un acceso directo a Spotify en el escritorio, eliminalo.
+                // Elimina el acceso directo a Spotify del escritorio.
                 if (File.Exists($@"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}\Spotify.lnk"))
                     File.Delete($@"{Environment.GetFolderPath(Environment.SpecialFolder.Desktop)}\Spotify.lnk");
             }
             catch (Exception ex)
             {
                 AskUserToGenerateLogs(ref ex);
-
-                // Habilita los botones correspondientes.
-                BlockTheSpot_Load(this, EventArgs.Empty);
+                SetGuiValues();
                 return;
             }
 
@@ -107,8 +140,15 @@ namespace BlockTheSpot
 
             Application.Exit();
         }
-        //
-        // Desinstala el paquete UWP <SpotifyAB.SpotifyMusic>, si lo hubiera, dado que es incompatible con la metodología de parcheo de BTS.
+        /// <summary>
+        /// Desinstala el paquete UWP "SpotifyAB.SpotifyMusic", si lo hubiera,
+        /// dado que es incompatible con la metodología del parche.
+        /// </summary>
+        /// <exception cref="UnauthorizedAccessException">
+        /// Excepción, equivalente a <c>AccessDeniedException</c>, lanzada al no poder enumerar
+        /// todos los paquetes UWP instalados en el grupo de usuarios actual o,
+        /// cuando la desinstalación no ha sido completada por cualquier motivo.
+        /// </exception>
         private void UwpPackageRemoval()
         {
             outputLabel.Text = "Desinstalando Microsoft Store Spotify ...";
@@ -119,17 +159,17 @@ namespace BlockTheSpot
                 var spotifyPkg = pkgManager.FindPackagesForUser(string.Empty).FirstOrDefault(
                     pkg => pkg.Id.Name.Equals("SpotifyAB.SpotifyMusic"));
 
-                // El paquete <SpotifyAB.SpotifyMusic> no esta instalado en la cuenta usuario actual.
+                // El paquete <SpotifyAB.SpotifyMusic> no esta instalado en el grupo de usuarios actual.
                 if (spotifyPkg == null)
                     return;
 
-                // Desinstala el paquete <SpotifyAB.SpotifyMusic> de la cuenta usuario actual.
+                // Desinstala el paquete <SpotifyAB.SpotifyMusic> del grupo de usuarios actual.
                 var removal = pkgManager.RemovePackageAsync(spotifyPkg.Id.FullName); /// RemovalOptions.RemoveForAllUsers
 
                 // Este evento es señalado cunado la operación finaliza.
                 ManualResetEvent removalEvent = new ManualResetEvent(false);
 
-                // Define el delago con un argumento lambda.
+                // Define al delegado del evento accionado al finalizar la desinstalación, con un argumento lambda.
                 removal.Completed = (depProgress, status) => { removalEvent.Set(); };
 
                 // Espera a que la operación finalice.
@@ -143,15 +183,21 @@ namespace BlockTheSpot
             }
             catch (Exception ex) // AccessDeniedException
             {
-                // removal.GetResults().ErrorText
+                /// removal.GetResults().ErrorText
                 throw new UnauthorizedAccessException(
                     "La desintalación del paquete SpotifyAB.SpotifyMusic (Microsoft Store) ha fallado:\n" +
                     "Prueba a ejecutar BlockTheSpot como administrador o realiza la desinstalación manualmente.", ex);
             }
         }
-        //
-        // Instala o realiza un downgrade a la versión 1.1.89.862.g94554d24-13 de Spotify,
-        // en la cual se explotará la vulnerabilidad que permite a BTS bloquear sus anuncios.
+        /// <summary>
+        /// Instala o realiza un downgrade a la versión <b>1.1.89.862.g94554d24-13</b> de Spotify,
+        /// en la cual se explotará la vulnerabilidad que permite a BTS bloquear sus anuncios.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="WebException">Excepción lanzada al producirse un error en la descarga
+        /// de la versión mencionada.</exception>
+        /// <exception cref="FileNotFoundException">Excepción lanzada al no completar la instalación
+        /// de la versión mencionada correctamente.</exception>
         private async Task DowngradeClientAsync()
         {
             if (!DowngradeRequired())
@@ -194,8 +240,13 @@ namespace BlockTheSpot
             if (DowngradeRequired())
                 throw new FileNotFoundException($"El downgrade de Spotify ha fallado, intentalo de nuevo.");
         }
-        //
-        // Inyecta los archivos chrome_elf.dll y config.ini, encargados de llevar a cabo el bloqueo de anuncios, en el directorio principal de Spotify.
+        /// <summary>
+        ///  Inyecta los archivos chrome_elf.dll y config.ini,
+        ///  encargados de llevar a cabo el bloqueo de anuncios, en el directorio principal de Spotify.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="WebException">Generada al producirse un error en la descarga.</exception>
+        /// <exception cref="UnauthorizedAccessException">Generada al negarse el acceso al directorio <c>SpotifyDir</c></exception>
         private async Task Patch()
         {
             outputLabel.Text = "Parcheando ...";
@@ -230,8 +281,11 @@ namespace BlockTheSpot
                     "Prueba a ejecutar BlockTheSpot como administrador.", ex);
             }
         }
-        //
-        // Bloquea las actualizaciones automáticas restringiéndo todos los permisos de acceso a la carpeta "%LocalAppData%\Spotify\Update".
+        /// <summary>
+        /// Bloquea las actualizaciones automáticas restringiéndo todos los permisos de acceso
+        /// a la carpeta <c>SpotifyLocalDir\Update</c>.
+        /// </summary>
+        /// <exception cref="UnauthorizedAccessException"></exception>
         private void DisableAutoUpdate()
         {
             outputLabel.Text = "Bloqueando actualizaciones automáticas ...";
@@ -257,8 +311,13 @@ namespace BlockTheSpot
             }
         }
 
-        //
-        // Método accionado por el evento <ResetButton_Click>.
+        /// <summary>
+        /// Método accionado por el evento <c>resetButton_Click(object, EventArgs)</c>.
+        /// <br/>
+        /// Ejecuta todos los métodos correspondientes al evento desencadenado.
+        /// </summary>
+        /// <returns></returns>
+        /// <see cref="ResetButton_Click(object, EventArgs)"/>
         private async Task ResetButtonMethod()
         {
             Cursor = Cursors.Default;
@@ -292,8 +351,11 @@ namespace BlockTheSpot
 
             Application.Exit();
         }
-        //
-        // Elimina los archivos chrome_elf.dll y config.ini, además de restablecer el primero a su versión original.
+        /// <summary>
+        /// Elimina los archivos <c>chrome_elf.dll</c> y <c>config.ini</c>, además de restablecer el primero a su versión original.
+        /// </summary>
+        /// <exception cref="UnauthorizedAccessException">Generada al denegarse el acceso a <c>SpotifyDir</c></exception>
+        /// <see cref="SpotifyDir"/>
         private void UndoPatch()
         {
             outputLabel.Text = "Deshaciendo parcheo ...";
@@ -318,8 +380,11 @@ namespace BlockTheSpot
                     "Prueba a ejecutar BlockTheSpot como administrador.", ex);
             }
         }
-        //
-        // Restablece los permisos de acceso obre el directorio "%LocalAppData%\Spotify\Update".
+        /// <summary>
+        /// Restablece los permisos de acceso sobre el directorio <c>SpotifyLocalDir\Update</c>.
+        /// </summary>
+        /// <exception cref="UnauthorizedAccessException"></exception>
+        /// <see cref="SpotifyLocalDir"/>
         private void EnableAutoUpdates()
         {
             outputLabel.Text = "Desbloqueando actualizaciones automáticas ...";
@@ -335,8 +400,10 @@ namespace BlockTheSpot
                     "Prueba a ejecutar BlockTheSpot como administrador.", ex);
             }
         }
-        //
-        // Descarga e inicia el instalador de la última versión de Spotify.
+        /// <summary>
+        /// Descarga e inicia el instalador de la última versión de Spotify.
+        /// </summary>
+        /// <returns></returns>
         private async Task UpdateClientAsync()
         {
             try
@@ -370,21 +437,32 @@ namespace BlockTheSpot
             }
         }
 
-        //
-        // Cierra todas las instancias de Spotify.
+        /// <summary>
+        /// Cierra todas las instancias de Spotify.
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="UnauthorizedAccessException">Excepción equivalente a <c>AccessDeniedException</c>.</exception>
         private async Task TerminateSpotifyAsync()
         {
             outputLabel.Text = "Finalizando Spotify ...";
 
-            foreach (Process p in Process.GetProcessesByName("Spotify"))
-                p.Kill();
+            try
+            {
+                foreach (Process p in Process.GetProcessesByName("Spotify"))
+                    p.Kill();
 
-            while (Process.GetProcessesByName("Spotify").Length > 0)
-                await Task.Run(() => Thread.Sleep(100));
+                while (Process.GetProcessesByName("Spotify").Length > 0)
+                    await Task.Run(() => Thread.Sleep(100));
+            }
+            catch (Exception ex) // AccessDeniedException
+            {
+                throw new UnauthorizedAccessException("Acceso denegado, intentalo de nuevo.", ex);
+            }
         }
-        //
-        // Comprueba si la versión actual de Spotify es superior a la compatible (1.1.89.862).
-        // Si Spotify no está instalado, devuelve <true>.
+        /// <summary>
+        /// Compara la versión actual de Spotify con la versión compatible <b>1.1.89.862.g94554d24-13</b>.
+        /// </summary>
+        /// <returns>Verdadero si es mayor a la compatible, falso si es igual o menor.</returns>
         private bool DowngradeRequired()
         {
             bool spotifyIsInstalled = File.Exists($@"{SpotifyDir}\Spotify.exe");
@@ -393,14 +471,16 @@ namespace BlockTheSpot
             Version actualVer = (!spotifyIsInstalled) ? null :
                 new Version(FileVersionInfo.GetVersionInfo(SpotifyDir + "\\Spotify.exe").FileVersion);
 
-            return (!spotifyIsInstalled ||
-                !chromeElfExists ||
-                actualVer.CompareTo(new Version("1.1.89.862")) > 0) ? true : false;
+            return !spotifyIsInstalled || !chromeElfExists || actualVer.CompareTo(new Version("1.1.89.862")) > 0;
         }
-        //
-        // Elimina todos los archivos relativos a la versión de escritorio de Spotify, si la hubiera instalada,
-        // a excepción de los archivos propios de la configuración y caché del usuario,
-        // permitiendo realizar una instalación limpia de Spotify sin perder la información del usuario.
+        /// <summary>
+        /// Elimina todos los archivos relativos a la versión de escritorio de Spotify, si la hubiera instalada,
+        /// a excepción de los archivos propios de la configuración y caché del usuario,
+        /// permitiendo realizar una instalación limpia de Spotify sin perder la información del usuario.
+        /// </summary>
+        /// <param name="targetDir">Directorio padre a inspeccionar/limpiar.</param>
+        /// <param name="dirNamesToSkip">Sub-directorios a omitir.</param>
+        /// <param name="fileNamesToSkip">Archivos a omitir.</param>
         private void ClearSpotifyDirs(string targetDir, List<string> dirNamesToSkip, List<string> fileNamesToSkip)
         {
             List<string> availableDirs = new List<string>() { targetDir };
@@ -416,14 +496,23 @@ namespace BlockTheSpot
             foreach (string file in availableFiles)
                 File.Delete(file);
         }
-        //
-        // Realiza una descarga asincrónica mostrando el progreso en una barra de progreso.
+        /// <summary>
+        /// Realiza una descarga asincrónica delegando el evento de progreso al método <c>progressBar_ProgressChanged</c>.
+        /// </summary>
+        /// <param name="uri">Uri a descargar.</param>
+        /// <param name="fileName">Nombre del archivo a descargar.</param>
+        /// <returns></returns>
+        /// <see cref="DownloadProgressChanged(int, bool)"/>
         private async Task DownloadAsync(Uri uri, string fileName)
         {
             WebClient webClient = new WebClient();
-            webClient.DownloadProgressChanged += (sender, e) => progressBar_UpdateProgress(e.ProgressPercentage, e.BytesReceived == e.TotalBytesToReceive);
+            webClient.DownloadProgressChanged += (sender, e) => DownloadProgressChanged(e.ProgressPercentage);
+            webClient.DownloadFileCompleted += (sender, e) => DownloadCompleted();
 
+            // Prepara la IGU para la mostrar el progreso de la descarga.
             this.outputLabel.Text = $"Descargando {fileName} ...";
+            this.progressBar.Visible = true;
+            this.progressLabel.Visible = true;
             this.toolTip.SetToolTip(this.outputLabel, this.outputLabel.Text);
 
             // Realiza una descarga asincrónica del <Uri> pasado por parámetro.
@@ -432,9 +521,33 @@ namespace BlockTheSpot
             // Libera los recursos utilizados tras finalizar la descarga.
             webClient.Dispose();
         }
-        //
-        // Maneja el control de acceso para el directorio "Update" de Spotify,
-        // permitiéndo o negando los permisos de escritura y eliminación.
+        /// <summary>
+        /// Método accionado cuando el progreso de la descarga cambia.
+        /// <br/>
+        /// Manipula la IGU en consecuencia.
+        /// </summary>
+        /// <param name="progress">Porcentaje del progreso de descarga.</param>
+        private void DownloadProgressChanged(int progress)
+        {
+            this.progressBar.Value = progress;
+            this.progressLabel.Text = progress + "%";
+        }
+        /// <summary>
+        /// Método accionado cuando la descarga finaliza.
+        /// <br/>
+        /// Manipula la IGU en consecuencia.
+        /// </summary>
+        private void DownloadCompleted()
+        {
+            this.progressBar.Visible = false;
+            this.progressLabel.Visible = false;
+            this.toolTip.SetToolTip(this.outputLabel, "");
+        }
+        /// <summary>
+        /// Maneja el control de acceso para el directorio "Update" de Spotify,
+        /// permitiéndo o negando los permisos de escritura y eliminación.
+        /// </summary>
+        /// <param name="controlType">Tipo de acceso a implementar (permitir/denegar).</param>
         private void FileSecurity(AccessControlType controlType)
         {
             string dir = $@"{SpotifyLocalDir}\Update";
@@ -453,9 +566,11 @@ namespace BlockTheSpot
 
             Directory.SetAccessControl(dir, dirSecurity);
         }
-        //
-        // Informa al usuario del mensaje de la excepción generada y le consulta
-        // si desea generar "logs" y subirlos al repositorio en GitHub.
+        /// <summary>
+        /// Informa al usuario del mensaje de la excepción generada y le consulta
+        /// si desea generar "logs" y subirlos al repositorio en GitHub.
+        /// </summary>
+        /// <param name="ex">Excepción capturada.</param>
         private void AskUserToGenerateLogs(ref Exception ex)
         {
             // Consulta al usuario si desea subir estos logs al repositorio de GitHub para investigar el error.
@@ -478,33 +593,55 @@ namespace BlockTheSpot
             File.WriteAllText(Path.GetTempPath() + "blockthespot_log.txt", stackTraces);
 
             // Abre el repositorio en GitHub y la carpeta de archivos temporales.
-            Process.Start(RepositoryUrl + @"/issues/new");
+            Process.Start(RepositoryUri + @"/issues/new");
             Process.Start(Path.GetTempPath());
 
             Application.Exit();
         }
 
 
-        private async void patchButton_Click(object sender, EventArgs args) => await PatchButtonMethod();
-        private async void resetButton_Click(object sender, EventArgs args) => await ResetButtonMethod();
-        private void progressBar_UpdateProgress(int progress, bool completed)
-        {
-            this.progressBar.Visible = completed ? false : true;
-            this.progressLabel.Visible = completed ? false : true;
-            this.progressBar.Value = progress;
-            this.progressLabel.Text = progress + "%";
-
-            if (completed)
-                this.toolTip.SetToolTip(this.outputLabel, "");
-        }
-        private void BlockTheSpot_HelpButtonClicked(object sender, EventArgs args) => Process.Start(RepositoryUrl);
+        /// <summary>
+        /// Evento desencadenado al cargar la IGU.
+        /// </summary>
+        /// <param name="sender">Objeto que desencadena el evento.</param>
+        /// <param name="e">Argumentos asociados al evento.</param>
+        private void BlockTheSpot_Load(object sender, EventArgs e) => SetGuiValues();
+        /// <summary>
+        /// Evento desencadenado al hacer clic en el botón "patchButton".
+        /// </summary>
+        /// <param name="sender">Objeto que desencadena el evento.</param>
+        /// <param name="e">Argumentos asociados al evento.</param>
+        private async void PatchButton_Click(object sender, EventArgs args) => await PatchButtonMethod();
+        /// <summary>
+        /// Evento desencadenado al hacer clic en el botón "resetButton".
+        /// </summary>
+        /// <param name="sender">Objeto que desencadena el evento.</param>
+        /// <param name="e">Argumentos asociados al evento.</param>
+        private async void ResetButton_Click(object sender, EventArgs args) => await ResetButtonMethod();
+        /// <summary>
+        /// Evento desencadenado al hacer clic en el botón "HelpButton".
+        /// </summary>
+        /// <param name="sender">Objeto que desencadena el evento.</param>
+        /// <param name="e">Argumentos asociados al evento.</param>
+        private void BlockTheSpot_HelpButtonClicked(object sender, EventArgs args) => Process.Start(RepositoryUri.ToString());
+        /// <summary>
+        /// Evento desencadenado al cerrar la IGU.
+        /// <br/>
+        /// Comprueba si el cierre ha sido solicitado por el usuario mientras
+        /// el programa se encontraba en ejecución y,
+        /// confirma la solicitud con un cuadro diálogo.
+        /// </summary>
+        /// <param name="sender">Objeto que desencadena el evento.</param>
+        /// <param name="e">Argumentos asociados al evento.</param>
         private void BlockTheSpot_FormClosing(object sender, FormClosingEventArgs close)
         {
             // Si el usuario trata de cerrar BlockTheSpot mientras se encuentra en medio de la ejecución,
             // confirmar la solicitud de cierre.
-            if (close.CloseReason == CloseReason.UserClosing && patchButton.Enabled == false && resetButton.Enabled == false)
+            if (close.CloseReason == CloseReason.UserClosing && !patchButton.Enabled && !resetButton.Enabled)
             {
-                DialogResult exitMessage = MessageBox.Show(this, "BlockTheSpot no ha terminado su trabajo, ¿Deseas cerrar la aplicación de todas formas?", "BlockTheSpot", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+                DialogResult exitMessage = MessageBox.Show(this, "BlockTheSpot no ha terminado su trabajo, " +
+                    "¿Deseas cerrar la aplicación de todas formas?", "BlockTheSpot",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
                 
                 if (exitMessage == DialogResult.No)
                     close.Cancel = true;

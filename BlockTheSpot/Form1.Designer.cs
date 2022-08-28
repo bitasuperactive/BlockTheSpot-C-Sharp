@@ -50,7 +50,7 @@
             this.patchButton.TabIndex = 12;
             this.patchButton.Text = "Bloquear anuncios";
             this.patchButton.UseVisualStyleBackColor = true;
-            this.patchButton.Click += new System.EventHandler(this.patchButton_Click);
+            this.patchButton.Click += new System.EventHandler(this.PatchButton_Click);
             // 
             // resetButton
             // 
@@ -62,7 +62,7 @@
             this.resetButton.TabIndex = 13;
             this.resetButton.Text = "Restablecer Spotify";
             this.resetButton.UseVisualStyleBackColor = true;
-            this.resetButton.Click += new System.EventHandler(this.resetButton_Click);
+            this.resetButton.Click += new System.EventHandler(this.ResetButton_Click);
             // 
             // spotifyPictureBox
             // 
