@@ -29,7 +29,7 @@
     <SupportUrl>https://github.com/bitasuperactive/BlockTheSpot-C-Sharp/</SupportUrl>
     <ProductName>BlockTheSpot-C-Sharp</ProductName>
     <PublisherName>bitasuperactive</PublisherName>
-    <ApplicationRevision>35</ApplicationRevision>
+    <ApplicationRevision>36</ApplicationRevision>
     <ApplicationVersion>2.2.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>

@@ -50,8 +50,8 @@ namespace BlockTheSpot
         /// </summary>
         public BlockTheSpot()
         {
-            CheckIfAlreadyRunning();
             InitializeComponent();
+            CheckIfAlreadyRunning();
         }
 
 
@@ -544,8 +544,8 @@ namespace BlockTheSpot
             this.toolTip.SetToolTip(this.outputLabel, "");
         }
         /// <summary>
-        /// Maneja el control de acceso para el directorio "Update" de Spotify,
-        /// permitiéndo o negando los permisos de escritura y eliminación.
+        /// Maneja el control de acceso para el directorio "Update" de Spotify, el cual crea si no existe,
+        /// permitiéndo o negando todos los permisos de acceso.
         /// </summary>
         /// <param name="controlType">Tipo de acceso a implementar (permitir/denegar).</param>
         private void FileSecurity(AccessControlType controlType)
@@ -562,7 +562,7 @@ namespace BlockTheSpot
             foreach (FileSystemAccessRule rule in dirSecurity.GetAccessRules(true, true, typeof(NTAccount)))
                 dirSecurity.RemoveAccessRule(rule);
 
-            dirSecurity.AddAccessRule(new FileSystemAccessRule(WindowsIdentity.GetCurrent().Name, FileSystemRights.Write | FileSystemRights.Delete, controlType));
+            dirSecurity.AddAccessRule(new FileSystemAccessRule(WindowsIdentity.GetCurrent().Name, FileSystemRights.FullControl, controlType));
 
             Directory.SetAccessControl(dir, dirSecurity);
         }
