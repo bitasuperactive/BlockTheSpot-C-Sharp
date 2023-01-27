@@ -33,7 +33,7 @@ namespace BlockTheSpot
         /// Dirección Uri de la última versión de <b>chrome_elf.zip</b>.
         /// </summary>
         private static Uri ChromeElfUri { get; } =
-            new Uri("https://github.com/mrpond/BlockTheSpot/releases/latest/download/chrome_elf.zip");
+            new Uri("https://github.com/mrpond/BlockTheSpot/releases/download/2022.12.03.56/chrome_elf.zip");
         /// <summary>
         /// Ruta principal de Spotify.
         /// </summary>
@@ -142,7 +142,7 @@ namespace BlockTheSpot
         }
         /// <summary>
         /// Desinstala el paquete UWP "SpotifyAB.SpotifyMusic", si lo hubiera,
-        /// dado que es incompatible con la metodología del parche.
+        /// dado que es incompatible con la metodología del parche. Requiere referencia a "Windows.winmd".
         /// </summary>
         /// <exception cref="UnauthorizedAccessException">
         /// Excepción, equivalente a <c>AccessDeniedException</c>, lanzada al no poder enumerar
